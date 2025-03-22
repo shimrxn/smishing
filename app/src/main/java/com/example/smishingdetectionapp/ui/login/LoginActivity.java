@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -186,19 +188,35 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Set initial state
+        if (passwordEditText.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+            // Password is hidden initially
+            togglePasswordVisibility.setImageResource(R.drawable.visibilityoff); // Closed eye icon
+        } else {
+            // Password is visible initially
+            togglePasswordVisibility.setImageResource(R.drawable.visibility); // Open eye icon
+        }
         // Password visibility toggle
         togglePasswordVisibility.setOnClickListener(v -> {
-            boolean isPasswordVisible = passwordEditText.getTransformationMethod() == null;
-            if (isPasswordVisible) {
-                passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                togglePasswordVisibility.setImageResource(R.drawable.ic_passwords_visibility);
+            // Check the current input type to determine if the password is visible
+            int currentInputType = passwordEditText.getInputType();
+
+            if (currentInputType == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+                // If the password is currently hidden (password transformation is applied), show the password
+                passwordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD); // Show the password
+                togglePasswordVisibility.setImageResource(R.drawable.visibility);  // Open eye icon
             } else {
-                passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT);
-                togglePasswordVisibility.setImageResource(R.drawable.ic_passwords_visibility);
+                // If the password is currently visible, hide the password
+                passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD); // Hide the password
+                togglePasswordVisibility.setImageResource(R.drawable.visibilityoff);  // Closed eye icon
             }
+
+            // Move the cursor to the end
             passwordEditText.setSelection(passwordEditText.getText().length());
         });
+
     }
+    //
 
     // Google Sign-In
     void signInGoogle() {
