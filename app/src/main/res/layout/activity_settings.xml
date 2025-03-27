@@ -18,9 +18,16 @@
         android:theme="@style/Theme.SmishingDetectionApp"
         app:menu="@menu/activity_main_drawer" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation">
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingBottom="100dp">
 
         <ImageView
             android:id="@+id/HardhatLogo"
@@ -133,15 +140,14 @@
             android:layout_width="175dp"
             android:layout_height="100dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="18dp"
+            android:layout_marginStart="16dp"
             android:background="@drawable/buttons_rounded"
             android:gravity="bottom|start"
             android:text="About Us"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/helpBtn"
-            app:layout_constraintTop_toBottomOf="@+id/reportBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/forumBtn"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
 
         <Button
@@ -267,4 +273,5 @@
             app:srcCompat="@drawable/outline_arrow_outward_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </RelativeLayout>
