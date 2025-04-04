@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/baseline_keyboard_arrow_right_24"
-                android:tint="#9E9E9E"
+                app:tint="#9E9E9E"
                 android:contentDescription="@string/baseline_keyboard_arrow_right_24"
                 android:paddingStart="8dp" />
         </LinearLayout>
