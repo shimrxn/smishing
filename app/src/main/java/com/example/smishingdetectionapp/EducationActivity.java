@@ -30,6 +30,7 @@ public class EducationActivity extends AppCompatActivity {
         youtubeWebView.loadUrl("https://www.youtube.com/embed/ZOZGQeG8avQ");
 
 
+
         Button quizButton = findViewById(R.id.quiz_button);
         quizButton.setOnClickListener(v -> {
             Intent intent = new Intent(EducationActivity.this, QuizesActivity.class);
