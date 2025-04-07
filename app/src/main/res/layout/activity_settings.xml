@@ -21,22 +21,36 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation">
+        android:layout_above="@id/bottom_navigation"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="100dp">
 
+        <TextView
+            android:id="@+id/guestBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFD54F"
+            android:text="You are in Guest Mode – Sign in for full access"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <ImageView
             android:id="@+id/HardhatLogo"
             android:layout_width="112dp"
             android:layout_height="106dp"
-            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guestBanner"
             app:srcCompat="@drawable/hardhat_logo" />
 
         <TextView
@@ -240,7 +254,7 @@
             app:layout_constraintTop_toTopOf="@+id/notificationsBtn"
             app:srcCompat="@drawable/notification_svg1" />
 
-<!--        <Button-->
+        <!--        <Button-->
 <!--            android:id="@+id/YourReportBtn"-->
 <!--            android:layout_width="175dp"-->
 <!--            android:layout_height="100dp"-->
