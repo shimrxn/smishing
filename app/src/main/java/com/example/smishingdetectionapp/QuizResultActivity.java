@@ -16,44 +16,38 @@ public class QuizResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_results);
 
-
         int score = getIntent().getIntExtra("score", 0);
         int totalQuestions = getIntent().getIntExtra("totalQuestions", 0);
         ArrayList<String> questions = getIntent().getStringArrayListExtra("questions");
         ArrayList<String[]> options = (ArrayList<String[]>) getIntent().getSerializableExtra("options");
         ArrayList<Integer> userAnswers = getIntent().getIntegerArrayListExtra("userAnswers");
         ArrayList<Integer> correctAnswers = getIntent().getIntegerArrayListExtra("correctAnswers");
-
+        ArrayList<Integer> timeSpent = getIntent().getIntegerArrayListExtra("timeSpent"); // New time tracking data
 
         TextView scoreTextView = findViewById(R.id.scoreText);
         scoreTextView.setText("Score: " + score + " / " + totalQuestions);
 
-
         LinearLayout historyLayout = findViewById(R.id.historyLayout);
         for (int i = 0; i < questions.size(); i++) {
-
+            // Display question text.
             TextView questionView = new TextView(this);
             questionView.setText((i + 1) + ". " + questions.get(i));
             questionView.setTextSize(16);
             historyLayout.addView(questionView);
 
-
             int correctAnswerIndex = correctAnswers.get(i);
             String correctAnswerText = options.get(i)[correctAnswerIndex];
 
-
             int userAnswerIndex = userAnswers.get(i);
             TextView userAnswerView = new TextView(this);
-
             if (userAnswerIndex != correctAnswerIndex) {
                 userAnswerView.setText("  Your Answer: " +
                         (userAnswerIndex != -1 ? options.get(i)[userAnswerIndex] : "No answer selected"));
-                userAnswerView.setTextColor(0xFFFF0000);
+                userAnswerView.setTextColor(0xFFFF0000); // Red for wrong answer
             } else {
                 userAnswerView.setText("  Your Answer: Correct");
-                userAnswerView.setTextColor(0xFF228B22);
+                userAnswerView.setTextColor(0xFF228B22); // Green for correct answer
             }
-
             historyLayout.addView(userAnswerView);
 
             if (userAnswerIndex != correctAnswerIndex) {
@@ -63,12 +57,17 @@ public class QuizResultActivity extends AppCompatActivity {
                 historyLayout.addView(correctAnswerView);
             }
 
+            // NEW: Display the time taken for the question
+            TextView timeView = new TextView(this);
+            timeView.setText("  Time Taken: " + timeSpent.get(i) + " sec");
+            timeView.setTextSize(14);
+            historyLayout.addView(timeView);
 
+            // Separator between questions
             TextView separator = new TextView(this);
             separator.setText("-----------------------------");
             historyLayout.addView(separator);
         }
-
 
         Button homeButton = findViewById(R.id.backToHomeButton);
         homeButton.setOnClickListener(v -> finish());
