@@ -47,17 +47,6 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         boolean isGuest = prefs.getBoolean("isGuest", false);
 
-        // Show or hide banner based on guest flag
-        View guestBanner = findViewById(R.id.guestBanner);
-        if (guestBanner != null) {
-            if (isGuest) {
-                guestBanner.setVisibility(View.VISIBLE);
-                Log.d("GuestMode", "Guest mode active – showing banner.");
-            } else {
-                guestBanner.setVisibility(View.GONE);
-                Log.d("GuestMode", "Logged-in user – hiding banner.");
-            }
-        }
 
         // Disable restricted buttons in guest mode
         if (isGuest) {
@@ -66,6 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
             disableButton(chatAssistantBtn, "Chat Assistant is unavailable in Guest Mode");
             disableButton(notificationsBtn, "Notifications require account access");
             disableButton(feedbackBtn, "Feedback is disabled for guests");
+            disableButton(reportBtn, "Report is disabled for guests");
         }
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
@@ -105,10 +95,13 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         // Report button to switch to reporting page
-        reportBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, ReportingActivity.class));
-            finish();
-        });
+        if (!isGuest) {
+            reportBtn.setOnClickListener(v -> {
+                startActivity(new Intent(this, ReportingActivity.class));
+                finish();
+            });
+        }
+
         //Notification button to switch to notification page
 
         // Help button to switch to Help page
