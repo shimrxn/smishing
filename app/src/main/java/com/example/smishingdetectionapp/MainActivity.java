@@ -78,6 +78,11 @@ public class MainActivity extends SharedActivity {
             startActivity(intent);
         });
 
+        Button scanner_btn = findViewById(R.id.scanner_btn);
+        scanner_btn.setOnClickListener(v -> {
+            startActivity(new Intent(this, RiskScannerTCActivity.class));
+            finish();
+        });
 
         // Database connection
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
