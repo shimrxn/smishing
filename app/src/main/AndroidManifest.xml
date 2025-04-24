@@ -102,7 +102,14 @@
         <activity
             android:name=".SignupActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".RiskScannerTCActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RiskScannerActivity"
+            android:exported="true" />
+        <activity android:name=".RiskResultActivity"
+            android:exported="true" />
         <activity android:name=".EducationActivity" />
         <activity android:name=".AboutUsActivity" />
         <activity android:name=".QuizResultActivity" />
