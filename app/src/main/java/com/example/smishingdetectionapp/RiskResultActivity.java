@@ -1,7 +1,6 @@
 package com.example.smishingdetectionapp;
 
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -25,11 +24,10 @@ public class RiskResultActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.circularProgressBar);
         percentageText = findViewById(R.id.percentageText);
 
-        int finalScore = getIntent().getIntExtra("score", 75); // Default score is 75
+        int finalScore = getIntent().getIntExtra("score", 75);
 
         animateProgress(finalScore);
 
-        // Bottom navigation
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setSelectedItemId(R.id.nav_news);
 
@@ -52,7 +50,6 @@ public class RiskResultActivity extends AppCompatActivity {
             return false;
         });
 
-        // Back button
         ImageButton report_back = findViewById(R.id.RiskScannerResult_back);
         report_back.setOnClickListener(v -> {
             startActivity(new Intent(this, RiskScannerActivity.class));
@@ -61,15 +58,12 @@ public class RiskResultActivity extends AppCompatActivity {
     }
 
     private void animateProgress(int score) {
-        // Make sure to set the max value to 100 for percentage-based progress
         progressBar.setMax(100);
 
-        // Use ObjectAnimator to animate the progress from 0 to the score
         ObjectAnimator animator = ObjectAnimator.ofInt(progressBar, "progress", 0, score);
-        animator.setDuration(1500);  // Duration in milliseconds
+        animator.setDuration(3000);
         animator.start();
 
-        // Optional: Update the percentage text as the progress bar fills
         new Thread(() -> {
             for (int i = 0; i <= score; i++) {
                 int finalI = i;

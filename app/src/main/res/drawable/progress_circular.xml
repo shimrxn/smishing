@@ -1,17 +1,18 @@
-<!-- res/drawable/progress_circular.xml -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Background Circle (Gray) -->
-    <item>
-        <shape>
-            <solid android:color="#E0E0E0" /> <!-- Background color -->
-            <corners android:radius="100dp" />
+    <item android:id="@android:id/background">
+        <shape android:shape="ring"
+            android:innerRadiusRatio="3"
+            android:thicknessRatio="13"
+            android:useLevel="false">
+            <solid android:color="#e0e0e0"/>
         </shape>
     </item>
-
-    <item android:left="10dp" android:right="10dp" android:top="10dp" android:bottom="10dp">
-        <shape>
-            <solid android:color="#4EBA16" /> <!-- Green progress color -->
-            <corners android:radius="100dp" />
+    <item android:id="@android:id/progress">
+        <shape android:shape="ring"
+            android:innerRadiusRatio="3"
+            android:thicknessRatio="13"
+            android:useLevel="true">
+            <solid android:color="#CC3F51B5"/>
         </shape>
     </item>
 </layer-list>
