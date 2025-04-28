@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Get your personal risk score based on SMS habits, security practices, and phone number exposure."
+                android:text="Get your personal risk score based on SMS habits, security practices, and other risk prameters."
                 android:textColor="#7A7A7A"
                 android:textSize="12sp" />
 
@@ -156,7 +156,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="35dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -174,7 +174,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Scan for Risky SMS Patterns"
+                        android:text="Risky SMS Patterns"
                         android:textColor="#3C3C3C"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -182,7 +182,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Detect suspicious links and sender patterns."
+                        android:text="Do not detect suspicious message patterns from   my device."
                         android:textColor="#7A7A7A"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -199,7 +199,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="35dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -225,7 +225,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tailor risk based on age-informed trends."
+                        android:text="Do not apply risk adjustment based on age-informed trends."
                         android:textColor="#7A7A7A"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -241,7 +241,7 @@
             <!-- security habits -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -252,7 +252,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="72dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -265,9 +265,9 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Check for good practices like 2FA or security apps."
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="Do not check for security apps installation and    spam filter enabling."
                         android:textColor="#7A7A7A"
                         android:textSize="12sp" />
                 </LinearLayout>

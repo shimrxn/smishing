@@ -1,4 +1,4 @@
-package com.example.smishingdetectionapp;
+package com.example.smishingdetectionapp.riskmeter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.smishingdetectionapp.MainActivity;
+import com.example.smishingdetectionapp.R;
+import com.example.smishingdetectionapp.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class RiskScannerTCActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.smishingdetectionapp
+package com.example.smishingdetectionapp.riskmeter
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas

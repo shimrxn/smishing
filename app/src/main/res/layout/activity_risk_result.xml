@@ -84,14 +84,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
-
     <ScrollView
         android:id="@+id/habitContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="40sp"
+        android:layout_marginTop="30sp"
         android:layout_marginBottom="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/circularProgressBar"
+        app:layout_constraintTop_toBottomOf="@id/circularProgressBar"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -103,14 +102,13 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- age-group adjustments -->
+            <!-- Age Group -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:gravity="center_vertical">
 
-                <!-- traffic light circle -->
                 <View
                     android:id="@+id/light_age_group"
                     android:layout_width="15dp"
@@ -128,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Age-Group Adjustments"
+                        android:text="Age Group"
                         android:textColor="#3C3C3C"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -136,25 +134,101 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Applying Age-based risk adjustments."
+                        android:text="Applied age-based risk adjustments."
                         android:textColor="#7A7A7A"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
 
-            <!-- spam filter habit -->
+            <!-- Default SMS App Check -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:gravity="center_vertical">
 
-                <!-- traffic light circle -->
+                <View
+                    android:id="@+id/light_sms_app"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginEnd="12dp"
+                    android:backgroundTint="#B0B0B0"
+                    android:background="@drawable/circle_indicator" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Default SMS App Check"
+                        android:textColor="#3C3C3C"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Checked if your SMS app is a trusted provider like Google or Samsung Messages."
+                        android:textColor="#7A7A7A"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
+
+            <!-- Installed Security App Check -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
+                <View
+                    android:id="@+id/light_security_app"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginEnd="12dp"
+                    android:backgroundTint="#B0B0B0"
+                    android:background="@drawable/circle_indicator" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Security App Installed"
+                        android:textColor="#3C3C3C"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Checked if trusted security apps like Norton or Bitdefender are installed."
+                        android:textColor="#7A7A7A"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
+
+            <!-- Spam Filter Installed -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
                 <View
                     android:id="@+id/light_spam_filter"
                     android:layout_width="15dp"
@@ -172,7 +246,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Spam Filter"
+                        android:text="Spam Filter Installed"
                         android:textColor="#3C3C3C"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -180,25 +254,101 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Checking your phone for spam filter enabling."
+                        android:text="Checked if your phone has spam protection like Google Messages or Hiya."
                         android:textColor="#7A7A7A"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
 
-            <!-- SMS behaviour section -->
+            <!-- Device Lock Enabled -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:gravity="center_vertical">
 
-                <!-- traffic light circle -->
+                <View
+                    android:id="@+id/light_device_lock"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginEnd="12dp"
+                    android:backgroundTint="#B0B0B0"
+                    android:background="@drawable/circle_indicator" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Device Lock Security"
+                        android:textColor="#3C3C3C"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Checked if your device has a secure lock like PIN or password."
+                        android:textColor="#7A7A7A"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
+
+            <!-- Unknown Sources Installation -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
+                <View
+                    android:id="@+id/light_unknown_sources"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginEnd="12dp"
+                    android:backgroundTint="#B0B0B0"
+                    android:background="@drawable/circle_indicator" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unknown App Installation"
+                        android:textColor="#3C3C3C"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Checked if your device allows app installs from unknown sources."
+                        android:textColor="#7A7A7A"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
+
+            <!-- SMS Behaviour -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
                 <View
                     android:id="@+id/light_sms_behaviour"
                     android:layout_width="15dp"
@@ -216,7 +366,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SMS Behaviours"
+                        android:text="SMS Behaviour"
                         android:textColor="#3C3C3C"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -224,229 +374,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Checking if your phone has received suspicious texts"
-                        android:textColor="#7A7A7A"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <!-- traffic light circle -->
-                <View
-                    android:id="@+id/light_phone_exposure"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Phone Exposure"
-                        android:textColor="#3C3C3C"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Checking if your phone number has appeared in known data breaches and is searchable online."
-                        android:textColor="#7A7A7A"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
-
-            <!-- MFA habits -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <!-- Traffic light circle -->
-                <View
-                    android:id="@+id/light_MFA"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="MFA Use"
-                        android:textColor="#3C3C3C"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Checking if multi-factor authentication has been enabled on important accounts."
-                        android:textColor="#7A7A7A"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
-
-            <!-- suspicious link activity -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <!-- Traffic light circle -->
-                <View
-                    android:id="@+id/light_risky_link"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Suspicious Link Activity"
-                        android:textColor="#3C3C3C"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Checking if suspicious links have been clicked on from SMS messages."
-                        android:textColor="#7A7A7A"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
-
-            <!-- security update status -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <!-- traffic light circle -->
-                <View
-                    android:id="@+id/light_updates"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Security Update Status"
-                        android:textColor="#3C3C3C"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Checking if your phone's security updates are recent."
-                        android:textColor="#7A7A7A"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
-
-            <!-- ignored security warnings -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <!-- traffic light circle -->
-                <View
-                    android:id="@+id/light_warnings"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ignored Security Warnings"
-                        android:textColor="#3C3C3C"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Checking if have ignored Android security warnings previously."
+                        android:text="Checked if your phone receives suspicious or risky SMS patterns."
                         android:textColor="#7A7A7A"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -454,6 +382,9 @@
 
         </LinearLayout>
     </ScrollView>
+
+
+
 
     <!-- navigation bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -469,5 +400,6 @@
         app:itemTextColor="@color/black"
         app:itemBackground="@color/baby_blue"
         app:menu="@menu/activity_main_drawer" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

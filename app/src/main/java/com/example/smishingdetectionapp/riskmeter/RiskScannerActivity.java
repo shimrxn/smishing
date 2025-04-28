@@ -1,19 +1,21 @@
-package com.example.smishingdetectionapp;
+package com.example.smishingdetectionapp.riskmeter;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 
+import com.example.smishingdetectionapp.MainActivity;
+import com.example.smishingdetectionapp.R;
+import com.example.smishingdetectionapp.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import static com.example.smishingdetectionapp.PulseInjectorKt.injectPulsing;
+import static com.example.smishingdetectionapp.riskmeter.PulseInjectorKt.injectPulsing;
 
 public class RiskScannerActivity extends AppCompatActivity {
 
