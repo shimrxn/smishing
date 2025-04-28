@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.os.Handler;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.navigation.NavController;
@@ -18,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.smishingdetectionapp.databinding.ActivityMainBinding;
 import com.example.smishingdetectionapp.detections.DatabaseAccess;
 import com.example.smishingdetectionapp.detections.DetectionsActivity;
+import com.example.smishingdetectionapp.RadarActivity;
 import com.example.smishingdetectionapp.ui.login.LoginActivity;
 
 
@@ -77,6 +79,13 @@ public class MainActivity extends SharedActivity {
             Intent intent = new Intent(MainActivity.this, EducationActivity.class);
             startActivity(intent);
         });
+
+        Button radarBtn = findViewById(R.id.radar_btn);
+        radarBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RadarActivity.class);
+            startActivity(intent);
+        });
+
 
 
         // Database connection

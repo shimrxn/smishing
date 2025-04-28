@@ -121,6 +121,10 @@
         </activity> <!-- MainActivity is not the launcher anymore -->
 
         <activity
+            android:name=".RadarActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.SmishingDetectionApp.NoActionBar" />
