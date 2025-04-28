@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
+import android.os.Handler;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -16,8 +18,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.smishingdetectionapp.databinding.ActivityMainBinding;
 import com.example.smishingdetectionapp.detections.DatabaseAccess;
 import com.example.smishingdetectionapp.detections.DetectionsActivity;
-
+import com.example.smishingdetectionapp.ui.login.LoginActivity;
 import com.example.smishingdetectionapp.riskmeter.RiskScannerTCActivity;
+
 
 
 import com.example.smishingdetectionapp.notifications.NotificationPermissionDialogFragment;
@@ -76,12 +79,12 @@ public class MainActivity extends SharedActivity {
             Intent intent = new Intent(MainActivity.this, EducationActivity.class);
             startActivity(intent);
         });
-
         Button scanner_btn = findViewById(R.id.scanner_btn);
         scanner_btn.setOnClickListener(v -> {
             startActivity(new Intent(this, RiskScannerTCActivity.class));
             finish();
         });
+
 
         // Database connection
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
