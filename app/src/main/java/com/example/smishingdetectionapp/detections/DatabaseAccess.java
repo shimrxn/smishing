@@ -382,9 +382,4 @@ public Cursor getReportsForSpecificDate(String specificDate) {
             return false; // Return false if an error occurs
         }
     }
-
-    // ✅ New method added for RadarActivity to use
-    public Cursor getDetections() {
-        return db.rawQuery("SELECT * FROM " + DatabaseOpenHelper.TABLE_DETECTIONS, null);
-    }
 }
