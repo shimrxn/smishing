@@ -7,9 +7,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import android.util.Log;
 
-import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
@@ -35,29 +33,6 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Button accountBtn = findViewById(R.id.accountBtn);
-        Button chatAssistantBtn = findViewById(R.id.chatAssistantBtn);
-        Button filteringBtn = findViewById(R.id.filteringBtn);
-        Button feedbackBtn = findViewById(R.id.feedbackBtn);
-        Button forumBtn = findViewById(R.id.forumBtn);
-        Button notificationsBtn = findViewById(R.id.notificationsBtn);
-        Button reportBtn = findViewById(R.id.reportBtn);
-
-        // Read guest flag from SharedPreferences
-        SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
-        boolean isGuest = prefs.getBoolean("isGuest", false);
-
-
-        // Disable restricted buttons in guest mode
-        if (isGuest) {
-            disableButton(accountBtn, "Account access is disabled in Guest Mode");
-            disableButton(filteringBtn, "Filtering is restricted in Guest Mode");
-            disableButton(chatAssistantBtn, "Chat Assistant is unavailable in Guest Mode");
-            disableButton(notificationsBtn, "Notifications require account access");
-            disableButton(feedbackBtn, "Feedback is disabled for guests");
-            disableButton(reportBtn, "Report is disabled for guests");
-        }
-
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
 
         nav.setSelectedItemId(R.id.nav_settings);
@@ -82,26 +57,22 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // Account button to switch to account page with biometric authentication
-        if (!isGuest) {
-            accountBtn.setOnClickListener(v -> triggerBiometricAuthenticationWithTimeout());
-        }
+        Button accountBtn = findViewById(R.id.accountBtn);
+        accountBtn.setOnClickListener(v -> triggerBiometricAuthenticationWithTimeout());
 
         //Filtering button to switch to Smishing rules page
-        if (!isGuest) {
-            filteringBtn.setOnClickListener(v -> {
-                startActivity(new Intent(this, SmishingRulesActivity.class));
-                finish();
-            });
-        }
+        Button filteringBtn = findViewById(R.id.filteringBtn);
+        filteringBtn.setOnClickListener(v -> {
+            startActivity(new Intent(this, SmishingRulesActivity.class));
+            finish();
+        });
 
         // Report button to switch to reporting page
-        if (!isGuest) {
-            reportBtn.setOnClickListener(v -> {
-                startActivity(new Intent(this, ReportingActivity.class));
-                finish();
-            });
-        }
-
+        Button reportBtn = findViewById(R.id.reportBtn);
+        reportBtn.setOnClickListener(v -> {
+            startActivity(new Intent(this, ReportingActivity.class));
+            finish();
+        });
         //Notification button to switch to notification page
 
         // Help button to switch to Help page
@@ -118,28 +89,28 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
+
         Button aboutUsBtn = findViewById(R.id.aboutUsBtn);
         aboutUsBtn.setOnClickListener(v -> {
             Intent intent = new Intent(SettingsActivity.this, AboutUsActivity.class);
             startActivity(intent);
         });
 
-        if (!isGuest) {
-            chatAssistantBtn.setOnClickListener(v -> {
-                Intent intent = new Intent(SettingsActivity.this, ChatAssistantActivity.class);
-                startActivity(intent);
-            });
-        }
+        Button chatAssistantBtn = findViewById(R.id.chatAssistantBtn);
+        chatAssistantBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(SettingsActivity.this, ChatAssistantActivity.class);
+            startActivity(intent);
+        });
 
-        // Feedback Button to switch to Feedback page
-        if (!isGuest) {
-            feedbackBtn.setOnClickListener(v -> {
-                startActivity(new Intent(this, FeedbackActivity.class));
-                finish();
-            });
-        }
-
+        //Feedback Button to switch to Feedback page
+        Button feedbackBtn = findViewById(R.id.feedbackBtn);
+        feedbackBtn.setOnClickListener(v -> {
+            startActivity(new Intent(this, FeedbackActivity.class));
+            finish();
+        });
         //Forum Button to switch to Forum page
+        Button forumBtn = findViewById(R.id.forumBtn);
         forumBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, ForumActivity.class));
             finish();
@@ -219,16 +190,6 @@ public class SettingsActivity extends AppCompatActivity {
     // Show a toast message
     private void notifyUser(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    // Helper method to disable restricted buttons in guest mode
-    private void disableButton(Button button, String message) {
-        if (button != null) {
-            button.setAlpha(0.5f);
-            button.setOnClickListener(v ->
-                    Toast.makeText(SettingsActivity.this, message, Toast.LENGTH_SHORT).show()
-            );
-        }
     }
 
     // Notification button to switch to notification page
