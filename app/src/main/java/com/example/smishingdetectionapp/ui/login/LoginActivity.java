@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.smishingdetectionapp.SettingsActivity;
 import com.example.smishingdetectionapp.BuildConfig;
 import com.example.smishingdetectionapp.DataBase.DBresult;
 import com.example.smishingdetectionapp.DataBase.Retrofitinterface;
@@ -90,21 +89,6 @@ public class LoginActivity extends AppCompatActivity {
         final Button registerButton = binding.registerButton;
         final ImageButton togglePasswordVisibility = binding.togglePasswordVisibility;
         final Button togglePinLogin = binding.togglePinLogin;  // Added missing reference for togglePinLogin button
-
-        // Guest Mode button logic
-        binding.btnGuest.setOnClickListener(v -> {
-            getSharedPreferences("AppPrefs", MODE_PRIVATE)
-                    .edit()
-                    .putBoolean("isGuest", true)
-                    .apply();
-
-            Toast.makeText(LoginActivity.this, "Continuing as Guest", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
 
         // Toggle functionality for PIN and Password login
         togglePinLogin.setOnClickListener(v -> {
@@ -260,15 +244,7 @@ public class LoginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 task.getResult(ApiException.class);
-
-                // Mark user as non-guest after Google login
-                getSharedPreferences("AppPrefs", MODE_PRIVATE)
-                        .edit()
-                        .putBoolean("isGuest", false)
-                        .apply();
-
                 navigateToMainActivity();
-
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
             }
@@ -302,12 +278,6 @@ public class LoginActivity extends AppCompatActivity {
     private void loginWithPin(String pin) {
         // For testing purposes, simulate a successful PIN login
         Toast.makeText(LoginActivity.this, "PIN verified successfully (bypassed for testing)", Toast.LENGTH_SHORT).show();
-
-        // Set isGuest to false since this is a real login
-        getSharedPreferences("AppPrefs", MODE_PRIVATE)
-                .edit()
-                .putBoolean("isGuest", false)
-                .apply();
         navigateToMainActivity();
     }
 
@@ -333,13 +303,6 @@ public class LoginActivity extends AppCompatActivity {
     private void loginWithPassword(String email, String password) {
         // For testing purposes, simulate a successful login
         Toast.makeText(LoginActivity.this, "Login successful (bypassed for testing)", Toast.LENGTH_SHORT).show();
-
-        // Set isGuest to false since this is a real login
-        getSharedPreferences("AppPrefs", MODE_PRIVATE)
-                .edit()
-                .putBoolean("isGuest", false)
-                .apply();
-
         navigateToMainActivity();
     }
 

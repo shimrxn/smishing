@@ -7,8 +7,6 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
 import android.os.Handler;
-import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
@@ -20,8 +18,10 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.smishingdetectionapp.databinding.ActivityMainBinding;
 import com.example.smishingdetectionapp.detections.DatabaseAccess;
 import com.example.smishingdetectionapp.detections.DetectionsActivity;
-import com.example.smishingdetectionapp.notifications.NotificationPermissionDialogFragment;
 import com.example.smishingdetectionapp.ui.login.LoginActivity;
+
+
+import com.example.smishingdetectionapp.notifications.NotificationPermissionDialogFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends SharedActivity {
@@ -67,24 +67,10 @@ public class MainActivity extends SharedActivity {
                 startActivity(new Intent(MainActivity.this, DebugActivity.class)));
 
         Button detections_btn = findViewById(R.id.detections_btn);
-
-        // Check Guest Mode
-        SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
-        boolean isGuest = prefs.getBoolean("isGuest", false);
-
-        if (isGuest) {
-            // Disable for guests
-            detections_btn.setAlpha(0.5f);
-            detections_btn.setOnClickListener(v -> {
-                Toast.makeText(MainActivity.this, "Detections are disabled in Guest Mode", Toast.LENGTH_SHORT).show();
-            });
-        } else {
-            // Enable for signed-in users
-            detections_btn.setOnClickListener(v -> {
-                startActivity(new Intent(MainActivity.this, DetectionsActivity.class));
-                finish();
-            });
-        }
+        detections_btn.setOnClickListener(v -> {
+            startActivity(new Intent(this, DetectionsActivity.class));
+            finish();
+        });
 
         Button learnMoreButton = findViewById(R.id.learn_more_btn);
         learnMoreButton.setOnClickListener(v -> {
@@ -110,7 +96,6 @@ public class MainActivity extends SharedActivity {
 
         // Closing the connection
         databaseAccess.close();
-
 
     }
 
