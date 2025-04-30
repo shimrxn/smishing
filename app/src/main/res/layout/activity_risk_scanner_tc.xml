@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Get your personal risk score based on SMS habits, security practices, and other risk prameters."
+                android:text="Get your personal risk score based on SMS habits, security practices, and other risk parameters."
                 android:textColor="#7A7A7A"
                 android:textSize="12sp" />
 

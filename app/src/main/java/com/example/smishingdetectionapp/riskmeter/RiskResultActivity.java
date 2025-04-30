@@ -54,10 +54,16 @@ public class RiskResultActivity extends AppCompatActivity {
         lightUnknownSources = findViewById(R.id.light_unknown_sources);
         lightSmsBehaviour = findViewById(R.id.light_sms_behaviour);
 
+        boolean disableSmsRisk = getIntent().getBooleanExtra("DISABLE_SMS_RISK", false);
+        boolean disableAgeRisk = getIntent().getBooleanExtra("DISABLE_AGE_RISK", false);
+        boolean disableSecurityRisk = getIntent().getBooleanExtra("DISABLE_SECURITY_RISK", false);
+
+
         //our logic scan and updates to progress bar, texts and lights
         RiskScannerLogic.scanHabits(this, progressBar, riskLevelText,
                 lightAgeGroup, lightSmsApp, lightSecurityApp, lightSpamFilter,
-                lightDeviceLock, lightUnknownSources, lightSmsBehaviour);
+                lightDeviceLock, lightUnknownSources, lightSmsBehaviour, disableSmsRisk,
+                disableAgeRisk, disableSecurityRisk);
 
         // this is for view anlysis text to make it a clickable text view
         TextView viewAnalysisText = findViewById(R.id.textViewRiskDetails);
@@ -141,7 +147,7 @@ public class RiskResultActivity extends AppCompatActivity {
         message.append(riskHeader);
 
         if (!risks.isEmpty()) {
-            SpannableString issuesHeader = new SpannableString("\n Detected Issues\n");
+            SpannableString issuesHeader = new SpannableString("\n Detected Issues\n\n");
             issuesHeader.setSpan(new StyleSpan(Typeface.BOLD), 0, issuesHeader.length(), 0);
             message.append(issuesHeader);
 
@@ -153,7 +159,7 @@ public class RiskResultActivity extends AppCompatActivity {
         }
 
         // adding styling to recommendations and recommendations
-        SpannableString recHeader = new SpannableString("\n Recommendations\n");
+        SpannableString recHeader = new SpannableString("\n Recommendations\n\n");
         recHeader.setSpan(new StyleSpan(Typeface.BOLD), 0, recHeader.length(), 0);
         message.append(recHeader);
         if (score > 30) {

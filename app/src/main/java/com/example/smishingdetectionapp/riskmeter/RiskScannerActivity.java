@@ -31,23 +31,30 @@ public class RiskScannerActivity extends AppCompatActivity {
 
         scanningText = findViewById(R.id.scanningText);
 
-        // Initial visibility
         scanningText.setVisibility(View.VISIBLE);
         pulseView.setVisibility(View.VISIBLE);
 
+
+        boolean disableSmsRisk = getIntent().getBooleanExtra("DISABLE_SMS_RISK", false);
+        boolean disableAgeRisk = getIntent().getBooleanExtra("DISABLE_AGE_RISK", false);
+        boolean disableSecurityRisk = getIntent().getBooleanExtra("DISABLE_SECURITY_RISK", false);
+
+
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(RiskScannerActivity.this, RiskResultActivity.class);
+            intent.putExtra("DISABLE_SMS_RISK", disableSmsRisk);
+            intent.putExtra("DISABLE_AGE_RISK", disableAgeRisk);
+            intent.putExtra("DISABLE_SECURITY_RISK", disableSecurityRisk);
             startActivity(intent);
             finish();
         }, 9000);
 
-        // Bottom navigation logic
+        // navigation bar
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setSelectedItemId(R.id.nav_news);
 
         nav.setOnItemSelectedListener(menuItem -> {
             int id = menuItem.getItemId();
-
             if (id == R.id.nav_home) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 overridePendingTransition(0, 0);
@@ -64,7 +71,7 @@ public class RiskScannerActivity extends AppCompatActivity {
             return false;
         });
 
-        // Back button
+        // back button
         ImageButton report_back = findViewById(R.id.RiskScanner_back);
         report_back.setOnClickListener(v -> {
             startActivity(new Intent(this, RiskScannerTCActivity.class));

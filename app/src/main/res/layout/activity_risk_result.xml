@@ -278,7 +278,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Checked if your phone has spam protection like Google Messages or Hiya."
+                        android:text="Checked if your phone has spam protection like Google Messages."
                         android:textColor="#7A7A7A"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -407,7 +407,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Checked if your phone receives suspicious or risky SMS patterns."
+                        android:text="Checked if your phone receives suspicious SMS messages."
                         android:textColor="#7A7A7A"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -415,9 +415,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-
-
 
     <!-- navigation bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -433,6 +430,5 @@
         app:itemTextColor="@color/black"
         app:itemBackground="@color/baby_blue"
         app:menu="@menu/activity_main_drawer" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
