@@ -86,12 +86,4 @@ public abstract class SharedActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-    protected void stopSessionTimer() {
-        if (sessionHandler != null) {
-            sessionHandler.removeCallbacks(sessionTimeoutRunnable);
-        }
-        if (popupHandler != null) {
-            popupHandler.removeCallbacks(popupTimeoutRunnable);
-        }
-    }
 }
