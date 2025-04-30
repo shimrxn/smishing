@@ -75,7 +75,7 @@
         android:id="@+id/riskLevelText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You are protected"
+        android:text="placeholder"
         android:textColor="#3C3C3C"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -83,6 +83,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
+
 
     <ScrollView
         android:id="@+id/habitContainer"
@@ -103,19 +104,33 @@
             android:padding="16dp">
 
             <!-- Age Group -->
+
+            <TextView
+                android:id="@+id/textViewRiskDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:text="View Risk Analysis Details "
+                android:textColor="#D93C3C3C"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="16dp">
 
                 <View
                     android:id="@+id/light_age_group"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
+                    android:background="@drawable/circle_indicator"
+                    android:backgroundTint="#B0B0B0" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -140,22 +155,25 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
 
             <!-- Default SMS App Check -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="16dp">
 
                 <View
                     android:id="@+id/light_sms_app"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
+                    android:background="@drawable/circle_indicator"
+                    android:backgroundTint="#B0B0B0" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -180,22 +198,25 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
 
             <!-- Installed Security App Check -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="16dp">
 
                 <View
                     android:id="@+id/light_security_app"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
+                    android:background="@drawable/circle_indicator"
+                    android:backgroundTint="#B0B0B0" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -220,22 +241,25 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
 
             <!-- Spam Filter Installed -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="16dp">
 
                 <View
                     android:id="@+id/light_spam_filter"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
+                    android:background="@drawable/circle_indicator"
+                    android:backgroundTint="#B0B0B0" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -260,22 +284,25 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
 
             <!-- Device Lock Enabled -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="16dp">
 
                 <View
                     android:id="@+id/light_device_lock"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
+                    android:background="@drawable/circle_indicator"
+                    android:backgroundTint="#B0B0B0" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -300,22 +327,25 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
 
             <!-- Unknown Sources Installation -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="16dp">
 
                 <View
                     android:id="@+id/light_unknown_sources"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
+                    android:background="@drawable/circle_indicator"
+                    android:backgroundTint="#B0B0B0" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -340,22 +370,25 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
 
             <!-- SMS Behaviour -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="16dp">
 
                 <View
                     android:id="@+id/light_sms_behaviour"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_marginEnd="12dp"
-                    android:backgroundTint="#B0B0B0"
-                    android:background="@drawable/circle_indicator" />
+                    android:background="@drawable/circle_indicator"
+                    android:backgroundTint="#B0B0B0" />
 
                 <LinearLayout
                     android:layout_width="0dp"
