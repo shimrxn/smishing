@@ -74,7 +74,6 @@
                 android:layout_marginTop="16dp"
                 app:srcCompat="@drawable/hardhat_logo" />
 
-
             <!-- Subtitle / Description -->
             <TextView
                 android:id="@+id/help_subtitle"
