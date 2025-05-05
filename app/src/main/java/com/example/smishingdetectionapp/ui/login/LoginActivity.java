@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private Retrofit retrofit;
     private Retrofitinterface retrofitinterface;
     private String BASE_URL = BuildConfig.SERVERIP;
+    private boolean isPasswordVisible = false;
 
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
@@ -188,14 +189,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Set initial state
-        if (passwordEditText.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-            // Password is hidden initially
-            togglePasswordVisibility.setImageResource(R.drawable.visibilityoff); // Closed eye icon
-        } else {
-            // Password is visible initially
-            togglePasswordVisibility.setImageResource(R.drawable.visibility); // Open eye icon
-        }
+
+        /*
         // Password visibility toggle
         togglePasswordVisibility.setOnClickListener(v -> {
             // Check the current input type to determine if the password is visible
@@ -214,6 +209,26 @@ public class LoginActivity extends AppCompatActivity {
             // Move the cursor to the end
             passwordEditText.setSelection(passwordEditText.getText().length());
         });
+
+    }*/
+
+        togglePasswordVisibility.setOnClickListener(v -> {
+            if (isPasswordVisible) {
+                // Hide password
+                passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                togglePasswordVisibility.setImageResource(R.drawable.visibilityoff); // lighter icon
+                isPasswordVisible = false;
+            } else {
+                // Show password
+                passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+                togglePasswordVisibility.setImageResource(R.drawable.visibility); // darker icon
+                isPasswordVisible = true;
+            }
+
+            // cursor stays at end of input
+            passwordEditText.setSelection(passwordEditText.getText().length());
+        });
+
 
     }
     //
