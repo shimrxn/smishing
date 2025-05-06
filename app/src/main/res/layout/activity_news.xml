@@ -31,8 +31,8 @@
 
         <ImageView
             android:id="@+id/new_logo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="@dimen/image_size_small"
+            android:layout_height="@dimen/image_size_small"
             android:layout_marginEnd="12dp"
             app:srcCompat="@drawable/new_logo"
             android:contentDescription="@string/logo_description" />
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/menu_Cyber_news"
-            android:textSize="24sp"
+            android:textSize="@dimen/text_size_large"
             android:textStyle="bold"
             android:textColor="@color/navy_blue"
             android:gravity="center_vertical" />
@@ -70,11 +70,12 @@
     <Button
         android:id="@+id/refreshButton"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_height_medium"
         android:text="@string/refresh"
+        android:textSize="@dimen/text_size_small"
         android:textColor="@color/navy_blue"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="@dimen/margin_xxlarge"
+        android:layout_marginEnd="@dimen/margin_xxlarge"
         android:layout_marginBottom="12dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
