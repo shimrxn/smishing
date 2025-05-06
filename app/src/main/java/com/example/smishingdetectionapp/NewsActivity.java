@@ -92,10 +92,13 @@ public class NewsActivity extends SharedActivity implements SelectListener{
             private void showNews(List<RSSFeedModel.Article> list) {
                 recyclerView = findViewById(R.id.news_recycler_view);
                 recyclerView.setHasFixedSize(true);
+                recyclerView.setItemViewCacheSize(20);
                 recyclerView.setLayoutManager(new GridLayoutManager(NewsActivity.this, 1));
-                adapter = new NewsAdapter(list, NewsActivity.this); // Corrected this reference
+                adapter = new NewsAdapter(NewsActivity.this); // Corrected this reference
                 recyclerView.setAdapter(adapter);
+                adapter.submitList(list);
             }
+
         });
 
         // Set up the refresh button click listener
@@ -148,7 +151,7 @@ public class NewsActivity extends SharedActivity implements SelectListener{
             }
 
             private void showNews(List<RSSFeedModel.Article> list) {
-                adapter = new NewsAdapter(list, NewsActivity.this);
+                adapter = new NewsAdapter(NewsActivity.this);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new GridLayoutManager(NewsActivity.this, 1));
                 recyclerView.setAdapter(adapter);
