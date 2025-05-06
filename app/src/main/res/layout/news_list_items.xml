@@ -7,7 +7,7 @@
     android:layout_margin="12dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
+    app:cardElevation="10dp"
     android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
@@ -34,7 +34,7 @@
                     android:id="@+id/text_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/text_size_small"
                     android:textStyle="bold"
                     android:textColor="@color/navy_blue"
                     android:fontFamily="sans-serif-medium"
@@ -47,18 +47,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:textColor="#9E9E9E"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/text_size_xsmall"/>
             </LinearLayout>
 
             <!-- Right Arrow Icon -->
             <ImageView
                 android:id="@+id/icon_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/icon_size_display"
+                android:layout_height="@dimen/icon_size_display"
                 android:src="@drawable/baseline_keyboard_arrow_right_24"
                 app:tint="#9E9E9E"
-                android:contentDescription="@string/baseline_keyboard_arrow_right_24"
-                android:paddingStart="8dp" />
+                android:paddingStart="8dp"
+                android:paddingTop="0dp"/>
         </LinearLayout>
 
         <!-- Description -->
@@ -67,10 +67,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/black"
             android:lineSpacingExtra="2dp"
-            android:maxLines="3"
+            android:maxLines="4"
             android:ellipsize="end" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
