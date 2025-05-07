@@ -112,10 +112,11 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(new Intent(this, FeedbackActivity.class));
             finish();
         });
-        //Forum Button to switch to Forum page
-        Button forumBtn = findViewById(R.id.communityBtn);
-        forumBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, ForumActivity.class));
+
+        //Community Button to switch to Community page
+        Button communityBtn = findViewById(R.id.communityBtn);
+        communityBtn.setOnClickListener(v -> {
+            startActivity(new Intent(this, CommunityHomeActivity.class));
             finish();
         });
     }
