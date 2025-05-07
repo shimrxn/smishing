@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import android.content.Intent;
+import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.Toast;
 public class CommunityHomeActivity extends AppCompatActivity {
     @Override
@@ -44,6 +46,23 @@ public class CommunityHomeActivity extends AppCompatActivity {
             }
         });
 
+        // Back Button
+        ImageButton notification_back = findViewById(R.id.notification_back);
+        // Check if the back button is initialized properly
+        if (notification_back != null) {
+            // Set an onClick listener to handle the back button's behavior
+            notification_back.setOnClickListener(v -> {
+                // Start SettingsActivity when back button is pressed
+                startActivity(new Intent(this, SettingsActivity.class));
+                // Close the current activity
+                finish();
+            });
+        } else {
+            // Log an error if the back button is null
+            Log.e("NotificationActivity", "Back button is null");
+        }
+
+        // Bottom Navigation Bar
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setOnItemSelectedListener(menuItem -> {
             int id = menuItem.getItemId();
