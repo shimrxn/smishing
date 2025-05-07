@@ -7,7 +7,7 @@
     android:background="@color/white"
     tools:context=".CommunityHomeActivity">
 
-<!-- Community Header -->
+    <!-- Community Header -->
     <LinearLayout
         android:id="@+id/headerSection"
         android:layout_width="match_parent"
@@ -162,7 +162,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="last reported 11 April 2025"
-                        android:textStyle="italic"                        android:textSize="14sp"
+                        android:textStyle="italic"
+                        android:textSize="14sp"
                         android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>
