@@ -41,6 +41,7 @@
                 android:layout_height="120dp"
                 android:layout_marginBottom="16dp"
                 android:importantForAccessibility="no"
+                android:contentDescription="@string/hardhat_logo_alt"
                 android:src="@drawable/new_logo" />
 
 

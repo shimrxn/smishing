@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -61,11 +62,13 @@ public class SettingsActivity extends AppCompatActivity {
         accountBtn.setOnClickListener(v -> triggerBiometricAuthenticationWithTimeout());
 
         //Filtering button to switch to Smishing rules page
-        Button filteringBtn = findViewById(R.id.filteringBtn);
-        filteringBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, SmishingRulesActivity.class));
-            finish();
-        });
+        ImageView filteringBtn = findViewById(R.id.imageView7);
+        if (filteringBtn != null) {
+            filteringBtn.setOnClickListener(v -> {
+                startActivity(new Intent(this, SmishingRulesActivity.class));
+                finish();
+            });
+        }
 
         // Report button to switch to reporting page
         Button reportBtn = findViewById(R.id.reportBtn);
@@ -110,7 +113,7 @@ public class SettingsActivity extends AppCompatActivity {
             finish();
         });
         //Forum Button to switch to Forum page
-        Button forumBtn = findViewById(R.id.forumBtn);
+        Button forumBtn = findViewById(R.id.communityBtn);
         forumBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, ForumActivity.class));
             finish();
