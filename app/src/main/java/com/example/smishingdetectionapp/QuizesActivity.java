@@ -102,6 +102,12 @@ public class QuizesActivity extends AppCompatActivity {
             }
             moveToNextQuestion();
         });
+
+        ImageButton report_back = findViewById(R.id.quiz_back);
+        report_back.setOnClickListener(v -> {
+            startActivity(new Intent(this, EducationActivity.class));
+            finish();
+        });
     }
 
     private void displayQuestion() {
