@@ -291,6 +291,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="login_with_pin">Login with PIN</string>
+    <string name="alert">triangle with exclamation mark</string>
 
     <!-- Account / Sorting -->
     <string name="account_details">Account Details</string>

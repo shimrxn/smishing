@@ -200,6 +200,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/news_notification_switch"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
+          
             <Switch
                 android:id="@+id/update_notification_switch"
                 android:layout_width="0dp"
@@ -293,6 +294,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/filtering_text" />
+          
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/OldToNewRB"
                 android:layout_width="wrap_content"
@@ -622,6 +624,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/passwordBtn"
                 app:layout_constraintTop_toTopOf="@+id/passwordBtn"
                 app:srcCompat="@drawable/outline_arrow_outward_24" />
+          
             <ImageView
                 android:id="@+id/imageView11"
                 android:layout_width="wrap_content"
@@ -632,6 +635,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/communityBtn"
                 app:layout_constraintTop_toTopOf="@+id/communityBtn"
                 app:srcCompat="@drawable/outline_arrow_outward_24" />
+          
             <ImageView
                 android:id="@+id/imageView12"
                 android:layout_width="wrap_content"
@@ -642,6 +646,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/aboutMeBtn"
                 app:layout_constraintTop_toTopOf="@+id/aboutMeBtn"
                 app:srcCompat="@drawable/outline_arrow_outward_24" />
+          
             <ImageView
                 android:id="@+id/imageView13"
                 android:layout_width="wrap_content"
