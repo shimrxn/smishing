@@ -32,7 +32,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NewsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.news_list_items, parent, false));
+        return new NewsViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.news_list_items, parent, false));
     }
 
     @Override
@@ -40,21 +41,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         RSSFeedModel.Article article = articles.get(position);
 
         holder.text_title.setText(article.title);
-        holder.text_description.setText(article.description);
         Log.d("DebugTag1", "Value " + article.description);
 
         // Format and clean description with safety check
-        formattedDescription = article.description.replaceAll("\\<.*?\\>", "");
+        formattedDescription = article.description != null
+                ? article.description.replaceAll("\\<.*?\\>", "")
+                : "";
+
         if (formattedDescription.length() > 98) {
             formattedDescription = formattedDescription.substring(84, formattedDescription.length() - 14);
         }
-        holder.text_description.setText(formattedDescription);
 
+        holder.text_description.setText(formattedDescription);
         holder.text_pubDate.setText(article.getFormattedDate());
 
         // --- BOOKMARK LOGIC ---
         ImageButton bookmarkButton = holder.bookmarkButton;
-
         boolean isBookmarked = bookmarkManager.isBookmarked(article.link);
         article.setBookmarked(isBookmarked);
         bookmarkButton.setImageResource(isBookmarked ? R.drawable.ic_bookmark_filled : R.drawable.ic_bookmark_border);
@@ -64,7 +66,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
             article.setBookmarked(newStatus);
 
             if (newStatus) {
-                bookmarkManager.saveBookmark(article.link);
+                bookmarkManager.saveBookmark(article);
                 bookmarkButton.setImageResource(R.drawable.ic_bookmark_filled);
                 Toast.makeText(context, "Bookmarked", Toast.LENGTH_SHORT).show();
                 Log.d("Bookmark", "Bookmarked: " + article.title);
@@ -81,6 +83,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     @Override
     public int getItemCount() {
-        return Math.min(articles.size(), 9);
+        return Math.min(articles.size(), 9); // Optional: control display count
     }
 }

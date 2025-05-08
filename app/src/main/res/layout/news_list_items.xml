@@ -21,7 +21,7 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_bookmark_border"
             android:contentDescription="Bookmark"
-            android:tint="@color/navy_blue"
+            app:tint="@color/navy_blue"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

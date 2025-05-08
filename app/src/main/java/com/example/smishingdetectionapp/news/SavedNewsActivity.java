@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smishingdetectionapp.R;
 import com.example.smishingdetectionapp.news.Models.RSSFeedModel;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class SavedNewsActivity extends AppCompatActivity implements SelectListener {
 
@@ -40,27 +38,17 @@ public class SavedNewsActivity extends AppCompatActivity implements SelectListen
 
         emptyMessage = findViewById(R.id.text_no_saved_news);
 
-        Set<String> savedLinks = bookmarkManager.getBookmarks();
+        List<RSSFeedModel.Article> savedArticles = bookmarkManager.getBookmarks();
 
-        if (savedLinks.isEmpty()) {
+        if (savedArticles == null || savedArticles.isEmpty()) {
             emptyMessage.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {
             emptyMessage.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
 
-            List<RSSFeedModel.Article> dummyArticles = new ArrayList<>();
-            for (String link : savedLinks) {
-                RSSFeedModel.Article article = new RSSFeedModel.Article();
-                article.title = "Bookmarked Article";
-                article.description = "Saved from your news feed.";
-                article.link = link;
-                article.pubDate = "";
-                article.setBookmarked(true);
-                dummyArticles.add(article);
-            }
-
-            adapter = new NewsAdapter(this, dummyArticles, this);
+            // Reuse the same NewsAdapter and layout
+            adapter = new NewsAdapter(this, savedArticles, this);
             recyclerView.setAdapter(adapter);
         }
     }
