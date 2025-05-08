@@ -16,14 +16,18 @@
         <!-- Bookmark Button - Top Left -->
         <ImageButton
             android:id="@+id/bookmarkButton"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_bookmark_border"
+            android:scaleType="fitCenter"
             android:contentDescription="Bookmark"
+            app:srcCompat="@drawable/ic_bookmark_border"
             app:tint="@color/navy_blue"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_title"
+            app:layout_constraintBottom_toBottomOf="@id/text_title"
             app:layout_constraintStart_toStartOf="parent" />
+
+
 
         <!-- Title -->
         <TextView
