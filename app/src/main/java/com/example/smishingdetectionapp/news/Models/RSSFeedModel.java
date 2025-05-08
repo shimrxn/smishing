@@ -44,6 +44,18 @@ public class RSSFeedModel {
         @Element(name = "pubDate", required = false)
         public String pubDate;
 
+
+        // --- NEW: Bookmark field ---
+        private boolean isBookmarked = false;
+
+        public boolean isBookmarked() {
+            return isBookmarked;
+        }
+
+        public void setBookmarked(boolean bookmarked) {
+            this.isBookmarked = bookmarked;
+        }
+
         // Method to format the publication date to a more user-friendly format.
         public String getFormattedDate() {
             try {

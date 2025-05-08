@@ -1,67 +1,86 @@
 package com.example.smishingdetectionapp.news;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.smishingdetectionapp.R;
 import com.example.smishingdetectionapp.news.Models.RSSFeedModel;
 
 import java.util.List;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder>{
+public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     private final List<RSSFeedModel.Article> articles;
     private final SelectListener listener;
+    private final BookmarkManager bookmarkManager;
+    private final Context context;
     private String formattedDescription;
 
-    // Constructor to initialize the adapter with articles and a click listener.
-    public NewsAdapter(List<RSSFeedModel.Article> articles, SelectListener listener) {
+    public NewsAdapter(Context context, List<RSSFeedModel.Article> articles, SelectListener listener) {
+        this.context = context;
         this.articles = articles;
         this.listener = listener;
+        this.bookmarkManager = new BookmarkManager(context);
     }
 
-    // Called when RecyclerView needs a new ViewHolder of the given type to represent an item.
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the item layout and create the ViewHolder
         return new NewsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.news_list_items, parent, false));
     }
 
-    // Called by RecyclerView to display the data at the specified position.
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        // Get the article for the current position
         RSSFeedModel.Article article = articles.get(position);
 
-        // Bind the article data to the ViewHolder's views
         holder.text_title.setText(article.title);
         holder.text_description.setText(article.description);
-        // LOG BELOW GIVES THE DESC STRING AS PLAIN
         Log.d("DebugTag1", "Value " + article.description);
 
-
-        formattedDescription = (article.description);
-        // Formats description data to remove HTML tags if they are present. This is specifically setup to format SCAMWATCHs' RSS feed.
-        formattedDescription = formattedDescription.replaceAll("\\<.*?\\>", "");
-        // Removes whitespace and leftover tags
-        formattedDescription = formattedDescription.substring(84, formattedDescription.length() - 14);
+        // Format and clean description with safety check
+        formattedDescription = article.description.replaceAll("\\<.*?\\>", "");
+        if (formattedDescription.length() > 98) {
+            formattedDescription = formattedDescription.substring(84, formattedDescription.length() - 14);
+        }
         holder.text_description.setText(formattedDescription);
-
-        Log.d("DebugTag2", "Value " + holder.text_description);
-
 
         holder.text_pubDate.setText(article.getFormattedDate());
 
-        // Set a click listener on the card view to handle item clicks
+        // --- BOOKMARK LOGIC ---
+        ImageButton bookmarkButton = holder.bookmarkButton;
+
+        boolean isBookmarked = bookmarkManager.isBookmarked(article.link);
+        article.setBookmarked(isBookmarked);
+        bookmarkButton.setImageResource(isBookmarked ? R.drawable.ic_bookmark_filled : R.drawable.ic_bookmark_border);
+
+        bookmarkButton.setOnClickListener(v -> {
+            boolean newStatus = !article.isBookmarked();
+            article.setBookmarked(newStatus);
+
+            if (newStatus) {
+                bookmarkManager.saveBookmark(article.link);
+                bookmarkButton.setImageResource(R.drawable.ic_bookmark_filled);
+                Toast.makeText(context, "Bookmarked", Toast.LENGTH_SHORT).show();
+                Log.d("Bookmark", "Bookmarked: " + article.title);
+            } else {
+                bookmarkManager.removeBookmark(article.link);
+                bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
+                Toast.makeText(context, "Bookmark removed", Toast.LENGTH_SHORT).show();
+                Log.d("Bookmark", "Unbookmarked: " + article.title);
+            }
+        });
+
         holder.cardView.setOnClickListener(v -> listener.OnNewsClicked(article));
     }
 
-
-    // Returns the total number of items in the data set held by the adapter, MAX 9.
+    @Override
     public int getItemCount() {
         return Math.min(articles.size(), 9);
     }
 }
-
