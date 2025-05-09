@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.os.Handler;
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.smishingdetectionapp.ui.EducationFragment;
 import androidx.fragment.app.Fragment;
@@ -33,6 +34,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends SharedActivity {
     private AppBarConfiguration mAppBarConfiguration;
+    private boolean isBackPressed;
 
 
     @SuppressLint("SetTextI18n")
@@ -55,16 +57,15 @@ public class MainActivity extends SharedActivity {
         nav.setOnItemSelectedListener(menuItem -> {
             int id = menuItem.getItemId();
             if (id == R.id.nav_home) {
+                nav.setActivated(true);
                 return true;
             } else if (id == R.id.nav_news) {
                 startActivity(new Intent(getApplicationContext(), NewsActivity.class));
                 overridePendingTransition(0, 0);
-                finish();
                 return true;
             } else if (id == R.id.nav_settings) {
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 overridePendingTransition(0, 0);
-                finish();
                 return true;
             }
             return false;
@@ -77,16 +78,14 @@ public class MainActivity extends SharedActivity {
         Button detections_btn = findViewById(R.id.detections_btn);
         detections_btn.setOnClickListener(v -> {
             startActivity(new Intent(this, DetectionsActivity.class));
-            finish();
         });
 
         Button learnMoreButton = findViewById(R.id.learn_more_btn);
-        /*learnMoreButton.setOnClickListener(v -> {
+        learnMoreButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, EducationActivity.class);
             startActivity(intent);
         });
 
-*/
         learnMoreButton.setOnClickListener(v -> {
             findViewById(R.id.home_layout).setVisibility(View.GONE);
             findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
@@ -98,7 +97,6 @@ public class MainActivity extends SharedActivity {
         Button scanner_btn = findViewById(R.id.scanner_btn);
         scanner_btn.setOnClickListener(v -> {
             startActivity(new Intent(this, RiskScannerTCActivity.class));
-            finish();
 
         });
 
@@ -120,6 +118,25 @@ public class MainActivity extends SharedActivity {
 
         // Closing the connection
         databaseAccess.close();
+
+    }
+    //tap again to exit override. only closes app if back pressed while alert is on screen
+    @Override
+    public void onBackPressed() {
+        if(isBackPressed)
+        {
+            super.onBackPressed();
+            return;
+        }
+        Toast.makeText(this, "press back again to exit", Toast.LENGTH_SHORT).show();
+        isBackPressed = true;
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isBackPressed = false;
+            }
+        }, 2000);
 
     }
 
