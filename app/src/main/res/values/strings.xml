@@ -331,6 +331,7 @@
     <!-- Miscellaneous -->
     <string name="buttons_rounded_alt">Rounded corner background used for buttons</string>
     <string name="menu_icon_alt">Hamburger menu icon in the top navigation bar</string>
+    <string name="bold_text">Bold Text</string>
 
 
 </resources>
