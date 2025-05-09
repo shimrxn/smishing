@@ -89,10 +89,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         ScrollView scrollView = findViewById(R.id.settingsScroll);
         if (scrollView != null) {
-            scrollView.post(() -> {
-                int savedScrollY = prefs.getInt("scroll_pos", 0);
-                scrollView.scrollTo(0, savedScrollY);
-            });
+            scrollView.post(() -> scrollView.fullScroll(ScrollView.FOCUS_UP));
         }
 
 
