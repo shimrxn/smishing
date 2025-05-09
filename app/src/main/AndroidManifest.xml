@@ -35,7 +35,7 @@
 
         <!-- Splash Activity (first screen that will show) -->
         <activity
-            android:name=".ui.splashactivity.SplashActivity"
+            android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
             <intent-filter>
@@ -132,6 +132,9 @@
             android:name=".ForumActivity"
             android:exported="false" />
         <activity
+            android:name=".CommunityHomeActivity" />
+
+        <activity
             android:name=".chat.ChatAssistantActivity"
             android:exported="false"
             android:label="@string/chat_assistant_page" />
@@ -141,6 +144,9 @@
 
 
         <activity
+            android:name=".CommunityPostActivity"
+            android:exported="false" />
+        <activity
             android:name=".riskmeter.RiskScannerTCActivity"
             android:exported="true" />
         <activity
@@ -148,6 +154,17 @@
             android:exported="true" />
         <activity android:name=".riskmeter.RiskResultActivity"
             android:exported="true" />
+        <!-- File Provider -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.smishingdetectionapp.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
 
     </application>
 
