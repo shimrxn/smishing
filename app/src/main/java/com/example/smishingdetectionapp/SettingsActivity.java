@@ -124,6 +124,7 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.nav_settings) {
+                nav.setActivated(true);
                 return true;
             }
             return false;
@@ -137,7 +138,6 @@ public class SettingsActivity extends AppCompatActivity {
         if (filteringBtn != null) {
             filteringBtn.setOnClickListener(v -> {
                 startActivity(new Intent(this, SmishingRulesActivity.class));
-                finish();
             });
         }
 
@@ -145,7 +145,6 @@ public class SettingsActivity extends AppCompatActivity {
         Button reportBtn = findViewById(R.id.reportBtn);
         reportBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, ReportingActivity.class));
-            finish();
         });
         //Notification button to switch to notification page
 
@@ -153,7 +152,6 @@ public class SettingsActivity extends AppCompatActivity {
         Button helpBtn = findViewById(R.id.helpBtn);
         helpBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, HelpActivity.class));
-            finish();
         });
 
         // About Me button to switch to AboutMeActivity
@@ -181,14 +179,12 @@ public class SettingsActivity extends AppCompatActivity {
         Button feedbackBtn = findViewById(R.id.feedbackBtn);
         feedbackBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, FeedbackActivity.class));
-            finish();
         });
 
         //Community Button to switch to Community page
         Button communityBtn = findViewById(R.id.communityBtn);
         communityBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, CommunityHomeActivity.class));
-            finish();
         });
     }
     // Trigger biometric authentication with timeout
@@ -327,6 +323,13 @@ public class SettingsActivity extends AppCompatActivity {
     private void updateScaleLabel() {
         int percentage = (int) (textScale * 100);
         textScaleLabel.setText(percentage + "%");
+    }
+    @Override
+    public void onBackPressed() {
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        nav.setSelectedItemId(R.id.nav_home);
+        finish();
+        super.onBackPressed();
     }
 }
 
