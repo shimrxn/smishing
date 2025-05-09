@@ -6,15 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
-import android.os.Handler;
 
-import android.view.View;
-import android.widget.Toast;
-
-import com.example.smishingdetectionapp.ui.EducationFragment;
-import androidx.fragment.app.Fragment;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,10 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.smishingdetectionapp.databinding.ActivityMainBinding;
 import com.example.smishingdetectionapp.detections.DatabaseAccess;
 import com.example.smishingdetectionapp.detections.DetectionsActivity;
-import com.example.smishingdetectionapp.ui.login.LoginActivity;
 import com.example.smishingdetectionapp.riskmeter.RiskScannerTCActivity;
-
-
 
 import com.example.smishingdetectionapp.notifications.NotificationPermissionDialogFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -80,19 +69,13 @@ public class MainActivity extends SharedActivity {
             startActivity(new Intent(this, DetectionsActivity.class));
         });
 
-        Button learnMoreButton = findViewById(R.id.learn_more_btn);
+
+        Button learnMoreButton = findViewById(R.id.fragment_container);
         learnMoreButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, EducationActivity.class);
             startActivity(intent);
         });
 
-        learnMoreButton.setOnClickListener(v -> {
-            findViewById(R.id.home_layout).setVisibility(View.GONE);
-            findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new EducationFragment())
-                    .commit();
-        });
 
         Button scanner_btn = findViewById(R.id.scanner_btn);
         scanner_btn.setOnClickListener(v -> {
