@@ -7,7 +7,12 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.util.TypedValue;
+import com.example.smishingdetectionapp.PreferencesUtil;
+import android.content.res.Configuration;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,10 +36,14 @@ import android.widget.Switch;
 
 
 public class SettingsActivity extends AppCompatActivity {
-
+    private SeekBar seekBarFontScale;
+    private TextView preview;
     private static final int TIMEOUT_MILLIS = 10000; // 30 seconds timeout
     private boolean isAuthenticated = false;
     private BiometricPrompt biometricPrompt; // To cancel authentication
+    private Button buttonIncreaseTextSize, buttonDecreaseTextSize;
+    private TextView textScaleLabel;
+    private float textScale; // between 0.8f and 1.5f, for example
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,32 @@ public class SettingsActivity extends AppCompatActivity {
         setTheme(isBold ? R.style.Theme_SmishingDetectionApp_Bold : R.style.Theme_SmishingDetectionApp);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        textScaleLabel = findViewById(R.id.textScaleLabel);
+        seekBarFontScale = findViewById(R.id.seekBarFontScale);
+        textScale = PreferencesUtil.getTextScale(this);
+        updateScaleLabel();
+
+// Set current SeekBar position
+        seekBarFontScale.setProgress((int) (textScale * 10));
+
+        seekBarFontScale.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float newScale = progress / 10f;
+
+                // Clamp between 0.8f and 1.5f
+                if (newScale < 0.8f) newScale = 0.8f;
+                if (newScale > 1.5f) newScale = 1.5f;
+
+                textScale = newScale;
+                PreferencesUtil.setTextScale(SettingsActivity.this, textScale);
+                updateScaleLabel();
+                applyFontScale();
+            }
+
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
 
         if (isBold) {
             applyBoldToAllSwitches(findViewById(R.id.settingsScroll));
@@ -96,7 +131,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
             return false;
         });
-
         // Account button to switch to account page with biometric authentication
         Button accountBtn = findViewById(R.id.accountBtn);
         accountBtn.setOnClickListener(v -> triggerBiometricAuthenticationWithTimeout());
@@ -276,6 +310,26 @@ public class SettingsActivity extends AppCompatActivity {
             // Recursively apply to nested children
             applyBoldToAllWidgets(child);
         }
+    }
+    private void applyFontScale() {
+        Configuration configuration = getResources().getConfiguration();
+        configuration = new Configuration(configuration); // make a copy
+        configuration.fontScale = textScale;
+
+        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+
+        // Refresh the layout
+        recreate();
+    }
+    private void saveAndApplyScale() {
+        PreferencesUtil.setTextScale(this, textScale);
+        updateScaleLabel();
+        applyFontScale();
+    }
+
+    private void updateScaleLabel() {
+        int percentage = (int) (textScale * 100);
+        textScaleLabel.setText(percentage + "%");
     }
 }
 

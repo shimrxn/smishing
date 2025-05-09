@@ -6,6 +6,8 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.smishingdetectionapp.ui.login.LoginActivity;
+import android.content.Context;
+import android.content.res.Configuration;
 
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -32,6 +34,16 @@ public abstract class SharedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setupSessionTimeout();
     }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        float scale = PreferencesUtil.getTextScale(newBase);
+        Configuration config = newBase.getResources().getConfiguration();
+        config.fontScale = scale;
+
+        Context scaledContext = newBase.createConfigurationContext(config);
+        super.attachBaseContext(scaledContext);
+    }
+
 
     @Override
     public void setContentView(int layoutResID) {
