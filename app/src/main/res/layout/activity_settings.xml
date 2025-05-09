@@ -387,11 +387,11 @@
 
 
             <TextView
-                android:id="@+id/Forums_and_Report"
+                android:id="@+id/Community_and_Report"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/Forums_and_Report"
+                android:text="@string/Community_and_Report"
                 android:textStyle="bold"
                 android:textColor="@color/navy_blue"
                 android:textSize="18sp"
@@ -415,7 +415,7 @@
                 android:text="@string/community"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Forums_and_Report" />
+                app:layout_constraintTop_toBottomOf="@+id/Community_and_Report" />
 
 
             <com.google.android.material.button.MaterialButton
