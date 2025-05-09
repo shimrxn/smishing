@@ -108,7 +108,7 @@
 
     <!-- Sign Out Window Strings -->
     <string name="sign_out_page">Sign Out</string>
-    <string name="confirmSOTxt">Do you want to sign out?</string>
+    <string name="confirmSOTxt">Are you sure you want to sign out?</string>
     <string name="cancelSOBtn">Cancel</string>
 
     <!-- Delete Account Window Strings -->
