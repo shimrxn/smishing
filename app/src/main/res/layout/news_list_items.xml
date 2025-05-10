@@ -4,78 +4,84 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/azure"
-    app:cardCornerRadius="8dp">
+    android:layout_margin="12dp"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Bookmark Button - Top Left -->
+        <!-- ───── Bookmark (top-left) ───── -->
         <ImageButton
-            android:id="@+id/bookmarkButton"
+            android:id="@+id/bookmarkBtn"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/bookmark"
             android:scaleType="fitCenter"
-            android:contentDescription="Bookmark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_bookmark_border"
-            app:tint="@color/navy_blue"
-            app:layout_constraintTop_toTopOf="@id/text_title"
-            app:layout_constraintBottom_toBottomOf="@id/text_title"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:tint="@color/navy_blue" />
 
-
-
-        <!-- Title -->
+        <!-- ───── Title ───── -->
         <TextView
             android:id="@+id/text_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/navy_blue"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/navy_blue"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/bookmarkButton"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"/>
+            app:layout_constraintStart_toEndOf="@id/bookmarkBtn"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Description -->
+        <!-- ───── Description ───── -->
         <TextView
             android:id="@+id/text_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="3"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/text_title"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="4dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_title" />
 
-        <!-- Play Button -->
+        <!-- ───── TTS Play button ───── -->
         <ImageButton
             android:id="@+id/TTSPlayButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:backgroundTint="@color/teal_700"
             android:contentDescription="@string/play_alert_text"
-            app:srcCompat="@android:drawable/ic_media_play"
-            app:layout_constraintTop_toBottomOf="@id/text_description"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_description"
+            app:srcCompat="@android:drawable/ic_media_play" />
 
-        <!-- Bottom Row: Date and Read More -->
+        <!-- ───── Bottom horizontal row (date + arrow) ───── -->
         <LinearLayout
+            android:id="@+id/bottom_row"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/TTSPlayButton"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/TTSPlayButton">
 
             <TextView
                 android:id="@+id/text_pubDate"
@@ -83,15 +89,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/grey"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/ReadMore"
+            <ImageView
+                android:id="@+id/icon_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/click_to_read_more"
-                android:textColor="@color/navy_blue"
-                android:textSize="14sp"/>
+                android:contentDescription="@string/baseline_keyboard_arrow_right_24"
+                android:paddingStart="8dp"
+                android:src="@drawable/baseline_keyboard_arrow_right_24"
+                app:tint="#9E9E9E" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

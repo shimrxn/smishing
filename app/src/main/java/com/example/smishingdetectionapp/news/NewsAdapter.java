@@ -1,88 +1,93 @@
 package com.example.smishingdetectionapp.news;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 
 import com.example.smishingdetectionapp.R;
 import com.example.smishingdetectionapp.news.Models.RSSFeedModel;
 
-import java.util.List;
+/**
+ * Displays RSS articles and lets the user bookmark them.
+ * Uses ListAdapter + DiffUtil so NewsActivity can call submitList().
+ */
+public class NewsAdapter extends ListAdapter<RSSFeedModel.Article, NewsViewHolder> {
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
-    private final List<RSSFeedModel.Article> articles;
     private final SelectListener listener;
     private final BookmarkManager bookmarkManager;
-    private final Context context;
-    private String formattedDescription;
 
-    public NewsAdapter(Context context, List<RSSFeedModel.Article> articles, SelectListener listener) {
-        this.context = context;
-        this.articles = articles;
-        this.listener = listener;
-        this.bookmarkManager = new BookmarkManager(context);
+    /* ---------- DiffUtil for efficient updates ---------- */
+    private static final DiffUtil.ItemCallback<RSSFeedModel.Article> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<>() {
+                @Override
+                public boolean areItemsTheSame(@NonNull RSSFeedModel.Article o,
+                                               @NonNull RSSFeedModel.Article n) {
+                    return o.link.equals(n.link); // link is unique
+                }
+                @Override
+                public boolean areContentsTheSame(@NonNull RSSFeedModel.Article o,
+                                                  @NonNull RSSFeedModel.Article n) {
+                    // include bookmark state so icon toggles properly
+                    return o.equals(n) && o.isBookmarked == n.isBookmarked;
+                }
+            };
+
+    public NewsAdapter(Context ctx, SelectListener listener) {
+        super(DIFF_CALLBACK);
+        this.listener        = listener;
+        this.bookmarkManager = new BookmarkManager(ctx);
     }
 
+    /* ---------- View-holder creation ---------- */
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NewsViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.news_list_items, parent, false));
+        return new NewsViewHolder(
+                LayoutInflater.from(parent.getContext())
+                              .inflate(R.layout.news_list_items, parent, false));
     }
 
+    /* ---------- Bind article data + bookmark logic ---------- */
     @Override
-    public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        RSSFeedModel.Article article = articles.get(position);
+    public void onBindViewHolder(@NonNull NewsViewHolder h, int pos) {
+        RSSFeedModel.Article a = getItem(pos);
 
-        holder.text_title.setText(article.title);
-        Log.d("DebugTag1", "Value " + article.description);
+        /* Title & cleaned description */
+        h.text_title.setText(a.title);
+        String desc = a.description.replaceAll("\\<.*?\\>", "");
+        try { desc = desc.substring(84, desc.length() - 14); }
+        catch (Exception e) { Log.w("NewsAdapter", "Desc trim fallback", e); }
+        h.text_description.setText(desc);
+        h.text_pubDate.setText(a.getFormattedDate());
 
-        // Format and clean description with safety check
-        formattedDescription = article.description != null
-                ? article.description.replaceAll("\\<.*?\\>", "")
-                : "";
+        /* Bookmark icon */
+        boolean bookmarked = bookmarkManager.isBookmarked(a.link);
+        a.isBookmarked = bookmarked;
+        h.bookmarkBtn.setImageResource(bookmarked
+                ? R.drawable.ic_bookmark_filled
+                : R.drawable.ic_bookmark_border);
 
-        if (formattedDescription.length() > 98) {
-            formattedDescription = formattedDescription.substring(84, formattedDescription.length() - 14);
-        }
-
-        holder.text_description.setText(formattedDescription);
-        holder.text_pubDate.setText(article.getFormattedDate());
-
-        // --- BOOKMARK LOGIC ---
-        ImageButton bookmarkButton = holder.bookmarkButton;
-        boolean isBookmarked = bookmarkManager.isBookmarked(article.link);
-        article.setBookmarked(isBookmarked);
-        bookmarkButton.setImageResource(isBookmarked ? R.drawable.ic_bookmark_filled : R.drawable.ic_bookmark_border);
-
-        bookmarkButton.setOnClickListener(v -> {
-            boolean newStatus = !article.isBookmarked();
-            article.setBookmarked(newStatus);
-
-            if (newStatus) {
-                bookmarkManager.saveBookmark(article);
-                bookmarkButton.setImageResource(R.drawable.ic_bookmark_filled);
-                Toast.makeText(context, "Bookmarked", Toast.LENGTH_SHORT).show();
-                Log.d("Bookmark", "Bookmarked: " + article.title);
+        h.bookmarkBtn.setOnClickListener(v -> {
+            boolean now = !a.isBookmarked;
+            a.isBookmarked = now;
+            if (now) {
+                bookmarkManager.saveBookmark(a);
+                Toast.makeText(v.getContext(), "Bookmarked", Toast.LENGTH_SHORT).show();
             } else {
-                bookmarkManager.removeBookmark(article.link);
-                bookmarkButton.setImageResource(R.drawable.ic_bookmark_border);
-                Toast.makeText(context, "Bookmark removed", Toast.LENGTH_SHORT).show();
-                Log.d("Bookmark", "Unbookmarked: " + article.title);
+                bookmarkManager.removeBookmark(a.link);
+                Toast.makeText(v.getContext(), "Bookmark removed", Toast.LENGTH_SHORT).show();
             }
+            notifyItemChanged(pos);  // refresh only this row
         });
 
-        holder.cardView.setOnClickListener(v -> listener.OnNewsClicked(article));
-    }
-
-    @Override
-    public int getItemCount() {
-        return Math.min(articles.size(), 9); // Optional: control display count
+        /* Card click → open detail / browser */
+        h.cardView.setOnClickListener(v -> listener.OnNewsClicked(a));
     }
 }
