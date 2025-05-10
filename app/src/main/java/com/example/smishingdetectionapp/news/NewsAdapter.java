@@ -25,7 +25,7 @@ public class NewsAdapter extends ListAdapter<RSSFeedModel.Article, NewsViewHolde
 
     /* ---------- DiffUtil for efficient updates ---------- */
     private static final DiffUtil.ItemCallback<RSSFeedModel.Article> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<>() {
+            new DiffUtil.ItemCallback<RSSFeedModel.Article>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull RSSFeedModel.Article o,
                                                @NonNull RSSFeedModel.Article n) {
@@ -35,7 +35,7 @@ public class NewsAdapter extends ListAdapter<RSSFeedModel.Article, NewsViewHolde
                 public boolean areContentsTheSame(@NonNull RSSFeedModel.Article o,
                                                   @NonNull RSSFeedModel.Article n) {
                     // include bookmark state so icon toggles properly
-                    return o.equals(n) && o.isBookmarked == n.isBookmarked;
+                    return o.equals(n) && o.isBookmarked() == n.isBookmarked();
                 }
             };
 
@@ -59,7 +59,7 @@ public class NewsAdapter extends ListAdapter<RSSFeedModel.Article, NewsViewHolde
     public void onBindViewHolder(@NonNull NewsViewHolder h, int pos) {
         RSSFeedModel.Article a = getItem(pos);
 
-        /* Title & cleaned description */
+        /* Title & description */
         h.text_title.setText(a.title);
         String desc = a.description.replaceAll("\\<.*?\\>", "");
         try { desc = desc.substring(84, desc.length() - 14); }
@@ -69,14 +69,14 @@ public class NewsAdapter extends ListAdapter<RSSFeedModel.Article, NewsViewHolde
 
         /* Bookmark icon */
         boolean bookmarked = bookmarkManager.isBookmarked(a.link);
-        a.isBookmarked = bookmarked;
-        h.bookmarkBtn.setImageResource(bookmarked
+        a.setBookmarked(bookmarked);
+        h.bookmarkButton.setImageResource(bookmarked
                 ? R.drawable.ic_bookmark_filled
                 : R.drawable.ic_bookmark_border);
 
-        h.bookmarkBtn.setOnClickListener(v -> {
-            boolean now = !a.isBookmarked;
-            a.isBookmarked = now;
+        h.bookmarkButton.setOnClickListener(v -> {
+            boolean now = !a.isBookmarked();
+            a.setBookmarked(now);
             if (now) {
                 bookmarkManager.saveBookmark(a);
                 Toast.makeText(v.getContext(), "Bookmarked", Toast.LENGTH_SHORT).show();
@@ -84,10 +84,9 @@ public class NewsAdapter extends ListAdapter<RSSFeedModel.Article, NewsViewHolde
                 bookmarkManager.removeBookmark(a.link);
                 Toast.makeText(v.getContext(), "Bookmark removed", Toast.LENGTH_SHORT).show();
             }
-            notifyItemChanged(pos);  // refresh only this row
+            notifyItemChanged(pos);
         });
 
-        /* Card click → open detail / browser */
         h.cardView.setOnClickListener(v -> listener.OnNewsClicked(a));
     }
 }

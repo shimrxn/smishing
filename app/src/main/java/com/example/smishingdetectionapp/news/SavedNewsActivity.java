@@ -47,9 +47,9 @@ public class SavedNewsActivity extends AppCompatActivity implements SelectListen
             emptyMessage.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
 
-            // Reuse the same NewsAdapter and layout
-            adapter = new NewsAdapter(this, savedArticles, this);
+            adapter = new NewsAdapter(this, this);   // <-- two-arg constructor
             recyclerView.setAdapter(adapter);
+            adapter.submitList(savedArticles);       // <-- pass the data her
         }
     }
 
