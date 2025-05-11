@@ -91,33 +91,6 @@ public class MainActivity extends SharedActivity {
         total_count = findViewById(R.id.total_counter);
         total_count.setText(""+databaseAccess.getCounter());
 
-        // Save actual data to SharedPreferences for widgets
-        SharedPreferences prefs = getSharedPreferences("SmishingPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-
-// Example: update detection count from local DB
-        int totalDetections = databaseAccess.getCounter();
-        editor.putInt("detectionCount", totalDetections);
-
-// Update profile label based on logic
-        if (totalDetections >= 10) {
-            editor.putString("profileLabel", "Vigilant User");
-        } else if (totalDetections >= 5) {
-            editor.putString("profileLabel", "Cautious User");
-        } else {
-            editor.putString("profileLabel", "New User");
-        }
-
-// Safe day streak: only update if it's a new day
-        String today = LocalDate.now().toString();
-        String lastDay = prefs.getString("lastDay", "");
-        if (!today.equals(lastDay)) {
-            int streak = prefs.getInt("safeDays", 0) + 1;
-            editor.putInt("safeDays", streak);
-            editor.putString("lastDay", today);
-        }
-
-        editor.apply();
 
         //closing the connection
         //databaseAccess.close();
