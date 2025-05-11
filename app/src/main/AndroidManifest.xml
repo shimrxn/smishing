@@ -118,6 +118,31 @@
             android:name=".chat.ChatAssistantActivity"
             android:exported="false"
             android:label="@string/chat_assistant_page" />
+
+        <receiver android:name=".ui.SmishingWidgetSmall" android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget_small_info"/>
+        </receiver>
+
+        <receiver android:name=".ui.SmishingWidgetMedium" android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget_medium_info"/>
+        </receiver>
+
+        <receiver android:name=".ui.SmishingWidgetLarge" android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget_large_info"/>
+        </receiver>
+
     </application>
 
 </manifest>
