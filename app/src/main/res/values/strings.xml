@@ -365,5 +365,13 @@
     <string name="news_list">News articles list</string>
     <string name="bookmark">Bookmark for News</string>
 
+    <!-- Common Topics -->
+    <string name="detect_smishing_title">How to Detect Smishing Messages?</string>
+    <string name="detect_smishing_content">Our Smishing App can automatically detect and block all smishing messages you receive. Do not worry!  We will do our best to protect your safety.</string>
+    <string name="report_sms_title">How to report a suspicious SMS?</string>
+    <string name="report_sms_content">To report a suspicious SMS, click on “Settings” at the lower right corner on the homepage of our smishing app, found "Report"button under  sub-title "Community and Reporting", fill in your personal information and information of a suspicious SMS to report it.</string>
+    <string name="smishing_vs_phishing_title">What is smishing vs. phishing?</string>
+    <string name="smishing_vs_phishing_content">Smishing is phishing via SMS, tricking users into clicking malicious links or sharing personal info. Phishing typically uses emails or fake websites to do the same. Both aim to steal sensitive data.</string>
+
 
 </resources>
