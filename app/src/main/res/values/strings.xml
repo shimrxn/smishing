@@ -65,9 +65,7 @@
     <string name="pin_changeBtn">Change Pin</string>
 
     <string name="terms_and_conditions">
-    &lt;b&gt;TERMS AND CONDITIONS&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
-
-    &lt;b&gt;1.&lt;/b&gt; By using this app, you agree to comply with these terms.&lt;br/&gt;
+&lt;b&gt;1.&lt;/b&gt; By using this app, you agree to comply with these terms.&lt;br/&gt;
     &lt;b&gt;2.&lt;/b&gt; The app is provided on an as is basis, with no guarantees of accuracy or availability.&lt;br/&gt;
     &lt;b&gt;3.&lt;/b&gt; You are responsible for ensuring you use the services in accordance with applicable laws.&lt;br/&gt;
     &lt;b&gt;4.&lt;/b&gt; Unauthorized reproduction, modification, or distribution of this app or its content is strictly prohibited.&lt;br/&gt;
@@ -89,8 +87,6 @@
     &lt;b&gt;2.&lt;/b&gt; We do not guarantee uninterrupted or error-free use of the app.&lt;br/&gt;
     &lt;b&gt;3.&lt;/b&gt; We are not liable for any damages resulting from the use of this app.&lt;br/&gt;
     &lt;b&gt;4.&lt;/b&gt; Always use caution when interacting with unknown parties through the app.&lt;br/&gt;&lt;br/&gt;
-
-    Please scroll to the bottom to continue.
 </string>
 
 
@@ -393,5 +389,8 @@
     <string name="smishing_vs_phishing_title">What is smishing vs. phishing?</string>
     <string name="smishing_vs_phishing_content">Smishing is phishing via SMS, tricking users into clicking malicious links or sharing personal info. Phishing typically uses emails or fake websites to do the same. Both aim to steal sensitive data.</string>
 
+    <string name="terms_and_conditions_title">Terms And Conditions</string>
+    <string name="please_scroll_to_the_bottom_to_proceed">Please scroll to bottom to proceed.</string>
+    <string name="accept_and_go_back_to_registration">Accept and Proceed with Registration.</string>
 
 </resources>
