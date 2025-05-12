@@ -1,5 +1,8 @@
 package com.example.smishingdetectionapp;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import com.example.smishingdetectionapp.PreferencesUtil;
 import android.content.res.Configuration;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
@@ -23,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import com.example.smishingdetectionapp.chat.ChatAssistantActivity;
 import com.example.smishingdetectionapp.news.NewsAdapter;
 import com.example.smishingdetectionapp.ui.account.AccountActivity;
+import com.example.smishingdetectionapp.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.concurrent.Executor;
@@ -41,9 +46,11 @@ public class SettingsActivity extends AppCompatActivity {
     private static final int TIMEOUT_MILLIS = 10000; // 30 seconds timeout
     private boolean isAuthenticated = false;
     private BiometricPrompt biometricPrompt; // To cancel authentication
-    private Button buttonIncreaseTextSize, buttonDecreaseTextSize;
+    private Button buttonIncreaseTextSize, buttonDecreaseTextSize, dialogCancel, dialogSignout;
     private TextView textScaleLabel;
     private float textScale; // between 0.8f and 1.5f, for example
+    private Dialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +131,7 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.nav_settings) {
+                nav.setActivated(true);
                 return true;
             }
             return false;
@@ -137,7 +145,6 @@ public class SettingsActivity extends AppCompatActivity {
         if (filteringBtn != null) {
             filteringBtn.setOnClickListener(v -> {
                 startActivity(new Intent(this, SmishingRulesActivity.class));
-                finish();
             });
         }
 
@@ -145,7 +152,6 @@ public class SettingsActivity extends AppCompatActivity {
         Button reportBtn = findViewById(R.id.reportBtn);
         reportBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, ReportingActivity.class));
-            finish();
         });
         //Notification button to switch to notification page
 
@@ -153,7 +159,6 @@ public class SettingsActivity extends AppCompatActivity {
         Button helpBtn = findViewById(R.id.helpBtn);
         helpBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, HelpActivity.class));
-            finish();
         });
 
         // About Me button to switch to AboutMeActivity
@@ -181,15 +186,36 @@ public class SettingsActivity extends AppCompatActivity {
         Button feedbackBtn = findViewById(R.id.feedbackBtn);
         feedbackBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, FeedbackActivity.class));
-            finish();
         });
 
         //Community Button to switch to Community page
         Button communityBtn = findViewById(R.id.communityBtn);
         communityBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, CommunityHomeActivity.class));
+        });
+
+        Button signoutBtn = findViewById(R.id.buttonSignOut);
+        Intent intent = new Intent(this, LoginActivity.class);
+        dialog = new Dialog(SettingsActivity.this);
+        dialog.setContentView(R.layout.dialog_signout);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogCancel = dialog.findViewById(R.id.signoutCancelBtn);
+        dialogSignout = dialog.findViewById(R.id.signoutBtn);
+
+        dialogCancel.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        dialogSignout.setOnClickListener(v -> {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             finish();
         });
+
+        signoutBtn.setOnClickListener(v -> {
+            dialog.show();
+        });
+
+
     }
     // Trigger biometric authentication with timeout
     private void triggerBiometricAuthenticationWithTimeout() {
@@ -327,6 +353,13 @@ public class SettingsActivity extends AppCompatActivity {
     private void updateScaleLabel() {
         int percentage = (int) (textScale * 100);
         textScaleLabel.setText(percentage + "%");
+    }
+    @Override
+    public void onBackPressed() {
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        nav.setSelectedItemId(R.id.nav_home);
+        finish();
+        super.onBackPressed();
     }
 }
 
