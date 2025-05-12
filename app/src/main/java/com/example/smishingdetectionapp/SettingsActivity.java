@@ -241,19 +241,37 @@ public class SettingsActivity extends AppCompatActivity {
 
     // Trigger biometric authentication with timeout
     private void triggerBiometricAuthenticationWithTimeout() {
-        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+        int authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG
+                | BiometricManager.Authenticators.DEVICE_CREDENTIAL;
+
+        BiometricManager bm = BiometricManager.from(this);
+        switch (bm.canAuthenticate(authenticators)) {
+            case BiometricManager.BIOMETRIC_SUCCESS:
+                // safe to ask for biometrics / device PIN
+                biometricPrompt = getPrompt();
+                biometricPrompt.authenticate(buildPromptInfo(authenticators));
+                startTimeoutTimer();
+                break;
+
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                // nothing enrolled → just open the Account screen (or send user to settings)
+                openAccountActivity();
+                break;
+
+            default:
+                // sensor missing, locked out, etc. → fall back or notify
+                notifyUser("Biometric authentication unavailable");
+                openAccountActivity();
+                break;
+        }
+    }
+
+    private BiometricPrompt.PromptInfo buildPromptInfo(int authenticators) {
+        return new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Authentication Required")
                 .setDescription("Please authenticate to access your account settings")
-                .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG |
-                        BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+                .setAllowedAuthenticators(authenticators)
                 .build();
-
-        // Start the authentication process
-        biometricPrompt = getPrompt();
-        biometricPrompt.authenticate(promptInfo);
-
-        // Start the timeout timer
-        startTimeoutTimer();
     }
 
     // BiometricPrompt setup
