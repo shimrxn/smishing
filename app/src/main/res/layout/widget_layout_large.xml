@@ -6,13 +6,6 @@
     android:background="@drawable/widget_background"
     android:gravity="center_horizontal">
 
-    <ImageView
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:src="@drawable/hardhat_logo"
-        android:contentDescription="Logo"
-        android:layout_marginBottom="8dp" />
-
     <TextView
         android:id="@+id/widget_app_title"
         android:layout_width="wrap_content"
@@ -42,29 +35,10 @@
         android:layout_marginBottom="4dp" />
 
     <TextView
-        android:id="@+id/widget_weekly_trend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Trend: --"
-        android:textSize="14sp"
-        android:textColor="#333333"
-        android:layout_marginBottom="4dp" />
-
-    <TextView
-        android:id="@+id/widget_confidence"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confidence: --%"
-        android:textSize="14sp"
-        android:textColor="#FF9800"
-        android:layout_marginBottom="4dp" />
-
-    <TextView
         android:id="@+id/widget_streak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Safe Days: --"
         android:textSize="14sp"
         android:textColor="#4CAF50" />
-
 </LinearLayout>
