@@ -37,7 +37,7 @@
     <!-- Page Titles -->
     <string name="login_page">Login</string>
     <string name="detections_str">Detections</string>
-    <string name="menu_news">News &amp; Updates</string>
+    <string name="menu_news">News</string>
     <string name="play_alert_text">Play Alert Text</string>
     <string name="menu_Cyber_news">ACCC Scamwatch News</string>
     <string name="menu_settings">Settings</string>
