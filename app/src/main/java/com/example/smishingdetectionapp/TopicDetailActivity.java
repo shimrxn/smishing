@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class TopicDetailActivity extends AppCompatActivity {
 
     @Override
@@ -36,6 +38,29 @@ public class TopicDetailActivity extends AppCompatActivity {
                 setupSmishingVsPhishing(titleView, contentView);
                 break;
         }
+
+        // Bottom navigation logic
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        nav.setSelectedItemId(R.id.nav_settings); // Highlight current tab
+
+        nav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+                return true;
+            } else if (id == R.id.nav_news) {
+                startActivity(new Intent(getApplicationContext(), NewsActivity.class));
+                finish();
+                return true;
+            } else if (id == R.id.nav_settings) {
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                finish();
+                return true;
+            }
+            return false;
+        });
     }
 
     // How to detect a smishing message method
