@@ -83,6 +83,8 @@ public class CommunityOpenPost extends AppCompatActivity {
                 commentInput.setText("");
                 commentCount++;
                 commentsText.setText(commentCount + " comments"); // increase number of comments
+
+
             } else {
                 Toast.makeText(this, "Please tell us something", Toast.LENGTH_SHORT).show();
             }
