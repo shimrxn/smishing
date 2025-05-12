@@ -14,13 +14,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import com.example.smishingdetectionapp.MainActivity;
+import com.example.smishingdetectionapp.SettingsActivity;
+
 public class CommunityReportActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_report);
 
-        // 1️⃣ TabLayout: add 3 tabs and select “Report”
+        final String source =
+                (getIntent().getStringExtra("source") == null
+                        ? "home"
+                        : getIntent().getStringExtra("source"));
+
+
+        // TabLayout: add 3 tabs and select “Report”
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Trending"));
         tabLayout.addTab(tabLayout.newTab().setText("Posts"));
@@ -32,12 +41,16 @@ public class CommunityReportActivity extends AppCompatActivity {
                 int pos = tab.getPosition();
                 if (pos == 0) {
                     // go back to trending
-                    startActivity(new Intent(CommunityReportActivity.this, CommunityHomeActivity.class));
+                    Intent i = new Intent(CommunityReportActivity.this, CommunityHomeActivity.class);
+                    i.putExtra("source", source);
+                    startActivity(i);
                     overridePendingTransition(0,0);
                     finish();
                 } else if (pos == 1) {
                     // go to posts
-                    startActivity(new Intent(CommunityReportActivity.this, CommunityPostActivity.class));
+                    Intent i = new Intent(new Intent(CommunityReportActivity.this, CommunityPostActivity.class));
+                    i.putExtra("source", source);
+                    startActivity(i);
                     overridePendingTransition(0,0);
                     finish();
                 }
@@ -47,25 +60,26 @@ public class CommunityReportActivity extends AppCompatActivity {
             @Override public void onTabReselected(TabLayout.Tab tab) { }
         });
 
-
-        // Back Button
         ImageButton community_back = findViewById(R.id.community_back);
-        // Check if the back button is initialized properly
         if (community_back != null) {
-            // Set an onClick listener to handle the back button's behavior
-            community_back.setOnClickListener(v -> {
-                // Start SettingsActivity when back button is pressed
-                startActivity(new Intent(this, SettingsActivity.class));
-                // Close the current activity
-                finish();
+            community_back.setOnClickListener(view ->  {
+                if ("settings".equals(source)) {
+                    startActivity((new Intent(this, SettingsActivity.class)));
+                    overridePendingTransition(0,0);
+                    finish();
+                } else {
+                    // Return to Home
+                    startActivity(new Intent(this, MainActivity.class));
+                    overridePendingTransition(0, 0);
+                    finish();
+                }
             });
         } else {
-            // Log an error if the back button is null
-            Log.e("NotificationActivity", "Back button is null");
+            Log.e("CommunityReportActivity", "Back button is null");
         }
 
 
-        // 2️⃣ BottomNavigationView: identical to CommunityHomeActivity’s
+        // BottomNavigationView: identical to CommunityHomeActivity’s
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setOnItemSelectedListener(item -> {
             Intent intent;
@@ -80,7 +94,7 @@ public class CommunityReportActivity extends AppCompatActivity {
             return true;
         });
 
-        // 3️⃣ Form logic: validate & toast
+        // Form logic: validate & toast
         EditText etPhone   = findViewById(R.id.etPhoneNumber);
         EditText etMessage = findViewById(R.id.etMessageContent);
         Button btnReport   = findViewById(R.id.btnReportProtect);

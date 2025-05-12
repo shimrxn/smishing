@@ -17,6 +17,12 @@ public class CommunityHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communityhomepage);
 
+        final String origin;
+        String src = getIntent().getStringExtra("source");
+        if (src == null) origin = "home";
+        else origin = src;
+
+
         TabLayout tabLayout = findViewById(R.id.tabLayout);
 
         tabLayout.addTab(tabLayout.newTab().setText("Trending")); // current page
@@ -32,13 +38,15 @@ public class CommunityHomeActivity extends AppCompatActivity {
                     // go to CommunityPostActivity
                     Intent intent = new Intent(CommunityHomeActivity.this,
                             CommunityPostActivity.class);
+                    intent.putExtra("source", origin);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     finish();
                 } else if (position == 2) {
                     // launch ReportActivity
-                    startActivity(new Intent(CommunityHomeActivity.this,
-                            CommunityReportActivity.class));
+                    Intent i = new Intent(CommunityHomeActivity.this, CommunityReportActivity.class);
+                    i.putExtra("source", origin);
+                    startActivity(i);
                     overridePendingTransition(0, 0);
                     finish();
                 }
@@ -78,6 +86,15 @@ public class CommunityHomeActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 finish();
                 return true;
+
+            } else if (id == R.id.nav_report) {
+                Intent i= new Intent(this,CommunityReportActivity.class);
+                i.putExtra("source", "home");
+                startActivity(i);
+                overridePendingTransition(0,0);
+                finish();
+                return true;
+
             } else if (id == R.id.nav_news) {
                 startActivity(new Intent(getApplicationContext(), NewsActivity.class));
                 overridePendingTransition(0, 0);
