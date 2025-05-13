@@ -18,10 +18,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class CommunityOpenPost extends AppCompatActivity {
 
-    private TextView titleText, descText, usernameText, likesText, commentsText;
+    private TextView titleText, descText, usernameText, timestampText, likesText, commentsText;
     private EditText commentInput;
     private Button addCommentBtn;
     private ImageButton backButton;
@@ -30,24 +33,24 @@ public class CommunityOpenPost extends AppCompatActivity {
     private TabLayout tabLayout;
     private BottomNavigationView bottomNav;
 
-    private int likeCount = 15; // mock initial like count
-    private int commentCount = 1; // mock initial comment count
+    private int likeCount = 15;
+    private int commentCount = 1;
     private ArrayList<String> commentList = new ArrayList<>();
     private CommunityCommentAdapter adapter;
 
-    // link to the communityopenpost design
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communityopenpost);
 
+        // UI components
         usernameText = findViewById(R.id.usernameText);
+        timestampText = findViewById(R.id.dateText);
         titleText = findViewById(R.id.titleText);
         descText = findViewById(R.id.descText);
         likesText = findViewById(R.id.likes);
         commentInput = findViewById(R.id.commentInput);
         commentsText = findViewById(R.id.comments);
-        commentsText.setText(commentCount + " comments");
         addCommentBtn = findViewById(R.id.addCommentBtn);
         commentRecycler = findViewById(R.id.commentRecycler);
         tabLayout = findViewById(R.id.tabLayout);
@@ -55,50 +58,55 @@ public class CommunityOpenPost extends AppCompatActivity {
         likeIcon = findViewById(R.id.likeIcon);
         backButton = findViewById(R.id.community_back);
 
-        // Mock post details
-        usernameText.setText("User1 • 6hrs ago");
-        titleText.setText("Is this legit: 0280 067 670?");
-        descText.setText("This number keeps calling me. Why is it that this app does not block this number? Anyone else facing the same issue. It is very annoying but I also do not know if it is legit.");
-        likesText.setText(likeCount + " likes");
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+        String date = intent.getStringExtra("date");
+        String title = intent.getStringExtra("posttitle");
+        String description = intent.getStringExtra("postdescription");
+        int likes = intent.getIntExtra("likes", 0);
+        int comments = intent.getIntExtra("comments", 0);
 
-        // Mock comments
-        commentList.add("User22 • 2hrs ago\nI have just received a call from this number today! We should report on the app!");
-
+        usernameText.setText(username != null ? username : "Unknown");
+        timestampText.setText(date != null ? date : "Unknown");
+        titleText.setText(title != null ? title : "");
+        descText.setText(description != null ? description : "");
+        likesText.setText(likes + " likes");
+        commentsText.setText(comments + " comments");
+        commentCount = comments;
+        likeCount = likes;
         commentRecycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CommunityCommentAdapter(commentList);
         commentRecycler.setAdapter(adapter);
 
-        // Like button
+        // Like button functionality
         likeIcon.setOnClickListener(v -> {
             likeCount++;
             likesText.setText(likeCount + " likes");
         });
 
-        // Add comment button
+        // Add comment functionality
         addCommentBtn.setOnClickListener(v -> {
             String comment = commentInput.getText().toString().trim();
             if (!comment.isEmpty()) {
-                commentList.add("You • now\n" + comment); //display new current comment
+                String timestamp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                commentList.add("You • " + timestamp + "\n" + comment);
                 adapter.notifyItemInserted(commentList.size() - 1);
                 commentInput.setText("");
                 commentCount++;
-                commentsText.setText(commentCount + " comments"); // increase number of comments
-
-
+                commentsText.setText(commentCount + " comments");
             } else {
                 Toast.makeText(this, "Please tell us something", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Tab Navigation
+        // Tab navigation
         tabLayout.addTab(tabLayout.newTab().setText("Trending"));
         tabLayout.addTab(tabLayout.newTab().setText("Posts"));
         tabLayout.addTab(tabLayout.newTab().setText("Report"));
         tabLayout.getTabAt(1).select();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            @Override public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 if (position == 0) {
                     startActivity(new Intent(CommunityOpenPost.this, CommunityHomeActivity.class));
@@ -111,10 +119,9 @@ public class CommunityOpenPost extends AppCompatActivity {
             @Override public void onTabReselected(TabLayout.Tab tab) {}
         });
 
-        // Back button to the posts page
-        ImageButton communityBack = findViewById(R.id.community_back);
-        if (communityBack != null) {
-            communityBack.setOnClickListener(v -> {
+        // Back button
+        if (backButton != null) {
+            backButton.setOnClickListener(v -> {
                 startActivity(new Intent(this, CommunityPostActivity.class));
                 finish();
             });
@@ -122,7 +129,7 @@ public class CommunityOpenPost extends AppCompatActivity {
             Log.e("CommunityOpenPost", "Back button is null");
         }
 
-        // Bottom Navigation
+        // Bottom navigation
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
@@ -138,5 +145,14 @@ public class CommunityOpenPost extends AppCompatActivity {
             finish();
             return true;
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("position", getIntent().getIntExtra("position", -1));
+        resultIntent.putExtra("updatedComments", commentCount);
+        setResult(RESULT_OK, resultIntent);
+        super.onBackPressed();
     }
 }

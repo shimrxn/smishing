@@ -1,14 +1,16 @@
 package com.example.smishingdetectionapp;
 
 public class CommunityPost {
-    public String username; //profile should have username in the future or to use the name as display
+    public String username;//profile should have username in the future or to use the name as display
+    private String date;
     public String posttitle;
     public String postdescription;
     public int likes;
     public int comments;
 
-    public CommunityPost(String username, String posttitle, String postdescription, int likes, int comments) {
+    public CommunityPost(String username, String date, String posttitle, String postdescription, int likes, int comments) {
         this.username = username;
+        this.date = date;
         this.posttitle = posttitle;
         this.postdescription = postdescription;
         this.likes = likes;
@@ -18,6 +20,10 @@ public class CommunityPost {
     // allow data to be retrieved by other classes
     public String getUsername() {
         return username;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public String getPosttitle() {

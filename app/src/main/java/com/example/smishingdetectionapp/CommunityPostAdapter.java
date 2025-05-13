@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.app.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +38,7 @@ public class CommunityPostAdapter extends RecyclerView.Adapter<CommunityPostAdap
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         CommunityPost post = filteredPost.get(position);
         holder.username.setText(post.getUsername());
+        holder.date.setText(post.getDate());
         holder.posttitle.setText(post.getPosttitle());
         holder.postdescription.setText(post.getPostdescription());
         holder.likes.setText(String.valueOf(post.getLikes()));
@@ -47,10 +49,13 @@ public class CommunityPostAdapter extends RecyclerView.Adapter<CommunityPostAdap
             Context context = holder.itemView.getContext();
             Intent intent = new Intent(context, CommunityOpenPost.class);
             intent.putExtra("username", post.getUsername());
+            intent.putExtra("date", post.getDate());
             intent.putExtra("posttitle", post.getPosttitle());
             intent.putExtra("postdescription", post.getPostdescription());
             intent.putExtra("likes", post.getLikes());
-            context.startActivity(intent);
+            intent.putExtra("comments", post.getComments());
+            intent.putExtra("position", holder.getAdapterPosition());
+            ((Activity) context).startActivityForResult(intent, 200);
         });
     }
 
@@ -59,31 +64,49 @@ public class CommunityPostAdapter extends RecyclerView.Adapter<CommunityPostAdap
         return filteredPost.size();
     }
 
-    // convert the searched content to lowercase before comparing so that it will be case insensitive
-    public void filter(String query) {
+    // case insensitive general search and field-specific filter
+    public void filter(String query, String field) {
         filteredPost.clear();
-        if (query == null || query.trim().isEmpty()) {
+
+        if (query == null || query.trim().isEmpty() || field.equals("all")) {
             filteredPost.addAll(originalPost);
         } else {
             String lower = query.toLowerCase();
             for (CommunityPost post : originalPost) {
-                if (post.getUsername().toLowerCase().contains(lower) ||
-                        post.getPosttitle().toLowerCase().contains(lower) ||
-                        post.getPostdescription().toLowerCase().contains(lower)) {
-                    filteredPost.add(post);
+                switch (field) {
+                    case "username":
+                        if (post.getUsername().toLowerCase().contains(lower)) filteredPost.add(post);
+                        break;
+                    case "title":
+                        if (post.getPosttitle().toLowerCase().contains(lower)) filteredPost.add(post);
+                        break;
+                    case "description":
+                        if (post.getPostdescription().toLowerCase().contains(lower)) filteredPost.add(post);
+                        break;
+                    case "likes":
+                        if (String.valueOf(post.getLikes()).contains(lower)) filteredPost.add(post);
+                        break;
+                    case "comments":
+                        if (String.valueOf(post.getComments()).contains(lower)) filteredPost.add(post);
+                        break;
+                    case "date":
+                        if (post.getDate() != null && post.getDate().toLowerCase().contains(lower)) filteredPost.add(post);
+                        break;
                 }
             }
         }
+
         notifyDataSetChanged();
     }
 
     static class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView username, posttitle, postdescription, likes, comments;
+        TextView username, date, posttitle, postdescription, likes, comments;
         ImageView userIcon, likeIcon, commentIcon;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.username);
+            date = itemView.findViewById(R.id.date);
             posttitle = itemView.findViewById(R.id.posttitle);
             postdescription = itemView.findViewById(R.id.postdescription);
             likes = itemView.findViewById(R.id.likes);

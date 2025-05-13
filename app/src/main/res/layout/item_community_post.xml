@@ -5,7 +5,7 @@
     android:padding="16dp"
     android:background="@color/white">
 
-    <!-- Username and Profile Pic -->
+    <!-- Username and Profile Pic and Timestamp -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,8 +24,19 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="User1"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2024-05-13"
+            android:textSize="12sp"
+            android:textColor="@color/black" />
+
     </LinearLayout>
 
     <!-- Post Title -->
