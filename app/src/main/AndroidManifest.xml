@@ -129,7 +129,7 @@
 
         <activity
             android:name=".ui.login.LoginActivity"
-            android:exported="true"></activity> <!-- MainActivity is not the launcher anymore -->
+            android:exported="true"   />
 
         <activity
             android:name=".MainActivity"
@@ -200,7 +200,8 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget_large_info" />
         </receiver>
-
+        <activity android:name=".FeedbackHistoryActivity" android:exported="false"/>
     </application>
+
 
 </manifest>
