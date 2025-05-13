@@ -11,7 +11,7 @@ import com.example.smishingdetectionapp.Community.CommunityPost;
 public class CommunityDatabase extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "community.db";
-    public static final int DB_VERSION = 2;
+    public static final int DB_VERSION = 3;
 
     public static final String TABLE_POSTS = "posts";
     public static final String COL_ID = "id";

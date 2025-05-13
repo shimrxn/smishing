@@ -129,7 +129,7 @@ public class CommunityDatabaseAccess {
                 CommunityDatabase.COL_ID + " = ?", new String[]{String.valueOf(postId)});
     }
 
-    // delete function
+    // delete post function
     public void deletePost(int postId) {
         // delete all comments linked to the post
         database.delete(CommunityDatabase.TABLE_COMMENTS,
@@ -140,6 +140,16 @@ public class CommunityDatabaseAccess {
         database.delete(CommunityDatabase.TABLE_POSTS,
                 CommunityDatabase.COL_ID + "=?",
                 new String[]{String.valueOf(postId)});
+    }
+
+    // delete comment function
+    public void deleteCommentsByPostId(int postId) {
+        database.delete(CommunityDatabase.TABLE_COMMENTS, CommunityDatabase.COL_POST_ID + "=?", new String[]{String.valueOf(postId)});
+    }
+
+    public void deleteSingleComment(int commentId) {
+        database.delete(CommunityDatabase.TABLE_COMMENTS,
+                CommunityDatabase.COL_COMMENT_ID + "=?", new String[]{String.valueOf(commentId)});
     }
 
 }

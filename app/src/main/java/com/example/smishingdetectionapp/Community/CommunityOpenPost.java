@@ -92,7 +92,7 @@ public class CommunityOpenPost extends AppCompatActivity {
         commentCount = comments;
         likeCount = likes;
         commentRecycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CommunityCommentAdapter(commentList);
+        adapter = new CommunityCommentAdapter(this, commentList, postId);
         commentRecycler.setLayoutManager(new LinearLayoutManager(this));
         commentRecycler.setAdapter(adapter);
 
@@ -108,25 +108,35 @@ public class CommunityOpenPost extends AppCompatActivity {
 
         // Add comment functionality
         addCommentBtn.setOnClickListener(v -> {
-            String commentText = commentInput.getText().toString().trim();
-            if (!commentText.isEmpty()) {
+            String commentTextStr = commentInput.getText().toString().trim();
+            if (!commentTextStr.isEmpty()) {
+                // Get current timestamp
                 String timestamp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-                // Insert comment into DB
-                String userId = getOrCreateUserId();
-                CommunityComment newComment = new CommunityComment(-1, postId, userId, date, commentText);
+                // assign unique user ID
+                SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                String userId = prefs.getString("user_id", null);
+                if (userId == null) {
+                    userId = "User" + new Random().nextInt(10000);
+                    prefs.edit().putString("user_id", userId).apply();
+                }
+
+                // Create and insert new comment
+                CommunityComment newComment = new CommunityComment(-1, postId, userId, timestamp, commentTextStr);
                 dbAccess.insertComment(newComment);
 
-                // Add to local list and refresh UI
+                // Update local list and adapter
                 commentList.add(newComment);
                 adapter.notifyItemInserted(commentList.size() - 1);
 
-                // Update comment count
+                // Clear input
                 commentInput.setText("");
+
+                // Update comment count
                 commentCount++;
                 commentsText.setText(commentCount + " comments");
-
                 dbAccess.updatePostComments(postId, commentCount);
+
             } else {
                 Toast.makeText(this, "Please tell us something", Toast.LENGTH_SHORT).show();
             }
@@ -185,12 +195,10 @@ public class CommunityOpenPost extends AppCompatActivity {
     private String getOrCreateUserId() {
         SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String userId = prefs.getString("user_id", null);
-
         if (userId == null) {
-            userId = "User" + new Random().nextInt(10000); // Random user ID like User8473
+            userId = "User" + new Random().nextInt(10000);
             prefs.edit().putString("user_id", userId).apply();
         }
-
         return userId;
     }
 

@@ -86,7 +86,6 @@ public class CommunityPostAdapter extends RecyclerView.Adapter<CommunityPostAdap
                     .create();
 
             dialog.show();
-
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
         });
@@ -101,8 +100,20 @@ public class CommunityPostAdapter extends RecyclerView.Adapter<CommunityPostAdap
     public void filter(String query, String field) {
         filteredPost.clear();
 
-        if (query == null || query.trim().isEmpty() || field.equals("all")) {
+        if (query == null || query.trim().isEmpty()) {
             filteredPost.addAll(originalPost);
+        } else if (field.equals("all")) {
+            String lower = query.toLowerCase();
+            for (CommunityPost post : originalPost) {
+                if (post.getUsername().toLowerCase().contains(lower) ||
+                        post.getPosttitle().toLowerCase().contains(lower) ||
+                        post.getPostdescription().toLowerCase().contains(lower) ||
+                        String.valueOf(post.getLikes()).contains(lower) ||
+                        String.valueOf(post.getComments()).contains(lower) ||
+                        (post.getDate() != null && post.getDate().toLowerCase().contains(lower))) {
+                    filteredPost.add(post);
+                }
+            }
         } else {
             String lower = query.toLowerCase();
             for (CommunityPost post : originalPost) {
