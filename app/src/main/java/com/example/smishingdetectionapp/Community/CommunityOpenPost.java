@@ -1,6 +1,7 @@
-package com.example.smishingdetectionapp;
+package com.example.smishingdetectionapp.Community;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -14,6 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smishingdetectionapp.MainActivity;
+import com.example.smishingdetectionapp.NewsActivity;
+import com.example.smishingdetectionapp.R;
+import com.example.smishingdetectionapp.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -21,6 +26,8 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.List;
+import java.util.Random;
 
 public class CommunityOpenPost extends AppCompatActivity {
 
@@ -32,10 +39,11 @@ public class CommunityOpenPost extends AppCompatActivity {
     private RecyclerView commentRecycler;
     private TabLayout tabLayout;
     private BottomNavigationView bottomNav;
+    private List<CommunityComment> commentList = new ArrayList<>();
+    private CommunityDatabaseAccess dbAccess;
 
     private int likeCount = 15;
     private int commentCount = 1;
-    private ArrayList<String> commentList = new ArrayList<>();
     private CommunityCommentAdapter adapter;
 
     @Override
@@ -66,6 +74,15 @@ public class CommunityOpenPost extends AppCompatActivity {
         int likes = intent.getIntExtra("likes", 0);
         int comments = intent.getIntExtra("comments", 0);
 
+        int postId = intent.getIntExtra("postId", -1);
+
+        if (postId != -1) {
+            dbAccess = new CommunityDatabaseAccess(this);
+            dbAccess.open();
+
+            commentList = dbAccess.getCommentsByPostId(postId);
+        }
+
         usernameText.setText(username != null ? username : "Unknown");
         timestampText.setText(date != null ? date : "Unknown");
         titleText.setText(title != null ? title : "");
@@ -76,24 +93,40 @@ public class CommunityOpenPost extends AppCompatActivity {
         likeCount = likes;
         commentRecycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CommunityCommentAdapter(commentList);
+        commentRecycler.setLayoutManager(new LinearLayoutManager(this));
         commentRecycler.setAdapter(adapter);
 
         // Like button functionality
         likeIcon.setOnClickListener(v -> {
             likeCount++;
             likesText.setText(likeCount + " likes");
+
+            if (postId != -1) {
+                dbAccess.updatePostLikes(postId, likeCount);
+            }
         });
 
         // Add comment functionality
         addCommentBtn.setOnClickListener(v -> {
-            String comment = commentInput.getText().toString().trim();
-            if (!comment.isEmpty()) {
+            String commentText = commentInput.getText().toString().trim();
+            if (!commentText.isEmpty()) {
                 String timestamp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                commentList.add("You • " + timestamp + "\n" + comment);
+
+                // Insert comment into DB
+                String userId = getOrCreateUserId();
+                CommunityComment newComment = new CommunityComment(-1, postId, userId, date, commentText);
+                dbAccess.insertComment(newComment);
+
+                // Add to local list and refresh UI
+                commentList.add(newComment);
                 adapter.notifyItemInserted(commentList.size() - 1);
+
+                // Update comment count
                 commentInput.setText("");
                 commentCount++;
                 commentsText.setText(commentCount + " comments");
+
+                dbAccess.updatePostComments(postId, commentCount);
             } else {
                 Toast.makeText(this, "Please tell us something", Toast.LENGTH_SHORT).show();
             }
@@ -103,6 +136,7 @@ public class CommunityOpenPost extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Trending"));
         tabLayout.addTab(tabLayout.newTab().setText("Posts"));
         tabLayout.addTab(tabLayout.newTab().setText("Report"));
+        tabLayout.clearOnTabSelectedListeners();
         tabLayout.getTabAt(1).select();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -145,6 +179,19 @@ public class CommunityOpenPost extends AppCompatActivity {
             finish();
             return true;
         });
+    }
+
+    // Assign the guest a random unique ID
+    private String getOrCreateUserId() {
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String userId = prefs.getString("user_id", null);
+
+        if (userId == null) {
+            userId = "User" + new Random().nextInt(10000); // Random user ID like User8473
+            prefs.edit().putString("user_id", userId).apply();
+        }
+
+        return userId;
     }
 
     @Override

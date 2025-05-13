@@ -1,4 +1,4 @@
-package com.example.smishingdetectionapp;
+package com.example.smishingdetectionapp.Community;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +8,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.example.smishingdetectionapp.R;
+
+import java.util.List;
 
 public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityCommentAdapter.CommentViewHolder> {
 
-    private final ArrayList<String> comments;
+    private final List<CommunityComment> comments;
 
-    public CommunityCommentAdapter(ArrayList<String> comments) {
+    public CommunityCommentAdapter(List<CommunityComment> comments) {
         this.comments = comments;
     }
 
-    // converting the comments to view objects using inflat and bind
     @NonNull
     @Override
     public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,18 +30,18 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
 
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
-        holder.commentText.setText(comments.get(position));
+        CommunityComment comment = comments.get(position);
+        holder.commentText.setText(comment.getUser() + " • " + comment.getDate() + "\n" + comment.getCommentText());
     }
 
-    // counts number of comments
     @Override
     public int getItemCount() {
         return comments.size();
     }
 
-    // renders the comments
     static class CommentViewHolder extends RecyclerView.ViewHolder {
         TextView commentText;
+
         CommentViewHolder(View itemView) {
             super(itemView);
             commentText = itemView.findViewById(R.id.commentText);
