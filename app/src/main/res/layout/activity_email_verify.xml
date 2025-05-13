@@ -7,10 +7,10 @@
 
     <ImageButton
         android:id="@+id/signup_back"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="@dimen/icon_size_large"
+        android:layout_height="@dimen/icon_size_large"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
         android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="@dimen/padding_large"
         android:gravity="center">
 
         <TextView
@@ -29,42 +29,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Verification"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_large"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="@dimen/margin_small"
+            android:textColor="@color/navy_blue" />
 
         <TextView
             android:id="@+id/instructionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Please check your email for the verification code."
-            android:textSize="14sp"
-            android:layout_marginBottom="32dp"/>
+            android:textSize="@dimen/text_size_small"
+            android:layout_marginBottom="@dimen/margin_xxlarge"
+            android:textColor="@color/grey" />
 
         <LinearLayout
             android:id="@+id/otpContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <Button
             android:id="@+id/continueBtn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_height_medium"
             android:text="Continue"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="#FFA500"
-            android:textColor="#FFFFFF"/>
+            android:layout_marginTop="@dimen/margin_xxlarge"
+            android:background="@drawable/buttons_rounded"
+            android:backgroundTint="@color/baby_blue"
+            android:textColor="@color/navy_blue" />
 
         <TextView
             android:id="@+id/resendText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Resend code in 00:20"
-            android:textSize="14sp"
-            android:layout_marginTop="16dp"
-            android:textColor="#0088FF"/>
+            android:textSize="@dimen/text_size_small"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:textColor="@color/blueColor" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
