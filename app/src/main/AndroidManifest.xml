@@ -197,7 +197,7 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget_large_info" />
         </receiver>
-
+        <activity android:name=".FeedbackHistoryActivity" android:exported="false"/>
     </application>
 
 
