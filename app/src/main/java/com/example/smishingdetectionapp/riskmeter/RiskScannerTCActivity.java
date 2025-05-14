@@ -9,6 +9,7 @@ import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smishingdetectionapp.MainActivity;
+import com.example.smishingdetectionapp.NewsActivity;
 import com.example.smishingdetectionapp.R;
 import com.example.smishingdetectionapp.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,6 +35,9 @@ public class RiskScannerTCActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.nav_news) {
+                startActivity(new Intent(getApplicationContext(), NewsActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
                 return true;
             } else if (id == R.id.nav_settings) {
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
