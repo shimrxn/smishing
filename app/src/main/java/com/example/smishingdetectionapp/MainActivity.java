@@ -85,7 +85,7 @@ public class MainActivity extends SharedActivity {
             finish();
         });
 
-        Button learnMoreButton = findViewById(R.id.learn_more_btn);
+        Button learnMoreButton = findViewById(R.id.fragment_container);
         learnMoreButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, EducationActivity.class);
             startActivity(intent);
