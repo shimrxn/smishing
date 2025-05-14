@@ -50,7 +50,8 @@ public class SplashScreen extends AppCompatActivity {
 
             boolean isGuest = prefs.getBoolean("isGuest", false);
             boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
-            boolean onboardingShown = prefs.getBoolean("onboarding_shown", false);
+            //boolean onboardingShown = prefs.getBoolean("onboarding_shown", false); uncomment when finsihed
+            boolean onboardingShown = false; // <<<< FORCE it to always be false for testing
 
             Intent intent;
 

@@ -2,6 +2,7 @@ package com.example.smishingdetectionapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
@@ -128,7 +129,6 @@ TextView total_count = findViewById(R.id.total_counter);
 
 if (isGuest) {
     infoText.setText("Welcome, Guest! You're in limited mode.\nSign in anytime to unlock full features and insights.");
-    total_count.setText("Guest Mode"); // or leave empty: total_count.setText("");
 } else {
     infoText.setText("Welcome to Smishing Detection! Your real-time tool to deter and detect smishing attacks.\nYour app is ready to smish.");
     total_count.setText("" + databaseAccess.getCounter());
