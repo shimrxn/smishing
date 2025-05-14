@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.ComposeView;
 
 import com.example.smishingdetectionapp.CommunityReportActivity;
 import com.example.smishingdetectionapp.MainActivity;
+import com.example.smishingdetectionapp.NewsActivity;
 import com.example.smishingdetectionapp.R;
 import com.example.smishingdetectionapp.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,8 +20,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import static com.example.smishingdetectionapp.riskmeter.PulseInjectorKt.injectPulsing;
 
 public class RiskScannerActivity extends AppCompatActivity {
-
-    private TextView scanningText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,7 @@ public class RiskScannerActivity extends AppCompatActivity {
         ComposeView pulseView = findViewById(R.id.pulseComposeView);
         injectPulsing(pulseView);
 
-        scanningText = findViewById(R.id.scanningText);
+        TextView scanningText = findViewById(R.id.scanningText);
 
         scanningText.setVisibility(View.VISIBLE);
         pulseView.setVisibility(View.VISIBLE);
@@ -52,8 +51,7 @@ public class RiskScannerActivity extends AppCompatActivity {
 
         // navigation bar
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
-        nav.setSelectedItemId(R.id.nav_news);
-
+        nav.setSelectedItemId(R.id.nav_home);
         nav.setOnItemSelectedListener(menuItem -> {
             int id = menuItem.getItemId();
             if (id == R.id.nav_home) {
@@ -71,6 +69,9 @@ public class RiskScannerActivity extends AppCompatActivity {
                 return true;
 
             } else if (id == R.id.nav_news) {
+                startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
                 return true;
             } else if (id == R.id.nav_settings) {
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));

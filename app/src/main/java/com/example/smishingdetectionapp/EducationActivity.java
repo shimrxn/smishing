@@ -25,6 +25,9 @@ public class EducationActivity extends AppCompatActivity {
         nav.setOnItemSelectedListener(menuItem -> {
             int id = menuItem.getItemId();
             if (id == R.id.nav_home) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
                 return true;
 
             } else if (id == R.id.nav_report) {
