@@ -80,7 +80,7 @@ public class CommunityPostActivity extends AppCompatActivity {
 
         postsRecyclerView = findViewById(R.id.postsRecyclerView);
         postsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CommunityPostAdapter(postList);
+        adapter = new CommunityPostAdapter(postList, this);
         postsRecyclerView.setAdapter(adapter);
 
         searchInput.addTextChangedListener(new TextWatcher() {
@@ -145,14 +145,14 @@ public class CommunityPostActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == 100) {
-                String username = data.getStringExtra("username");
+                String userId = data.getStringExtra("userId");
+                String date = data.getStringExtra("date");
                 String title = data.getStringExtra("posttitle");
                 String description = data.getStringExtra("postdescription");
                 int likes = data.getIntExtra("likes", 0);
                 int comments = data.getIntExtra("comments", 0);
-                String timestamp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-                CommunityPost newPost = new CommunityPost(-1, username, timestamp, title, description, likes, comments);
+                CommunityPost newPost = new CommunityPost(-1, userId, date, title, description, likes, comments);
                 dbAccess.insertPost(newPost);
                 postList.add(0, newPost);
                 searchInput.setText("");

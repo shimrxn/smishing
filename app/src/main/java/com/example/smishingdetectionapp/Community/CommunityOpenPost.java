@@ -91,12 +91,12 @@ public class CommunityOpenPost extends AppCompatActivity {
         commentsText.setText(comments + " comments");
         commentCount = comments;
         likeCount = likes;
+
         commentRecycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CommunityCommentAdapter(this, commentList, postId);
-        commentRecycler.setLayoutManager(new LinearLayoutManager(this));
         commentRecycler.setAdapter(adapter);
 
-        // Like button functionality
+        // Like button
         likeIcon.setOnClickListener(v -> {
             likeCount++;
             likesText.setText(likeCount + " likes");
@@ -106,7 +106,7 @@ public class CommunityOpenPost extends AppCompatActivity {
             }
         });
 
-        // Add comment functionality
+        // Add comment
         addCommentBtn.setOnClickListener(v -> {
             String commentTextStr = commentInput.getText().toString().trim();
             if (!commentTextStr.isEmpty()) {
@@ -114,12 +114,7 @@ public class CommunityOpenPost extends AppCompatActivity {
                 String timestamp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
                 // assign unique user ID
-                SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                String userId = prefs.getString("user_id", null);
-                if (userId == null) {
-                    userId = "User" + new Random().nextInt(10000);
-                    prefs.edit().putString("user_id", userId).apply();
-                }
+                String userId = getOrCreateUserId();
 
                 // Create and insert new comment
                 CommunityComment newComment = new CommunityComment(-1, postId, userId, timestamp, commentTextStr);
@@ -150,7 +145,8 @@ public class CommunityOpenPost extends AppCompatActivity {
         tabLayout.getTabAt(1).select();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override public void onTabSelected(TabLayout.Tab tab) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 if (position == 0) {
                     startActivity(new Intent(CommunityOpenPost.this, CommunityHomeActivity.class));
@@ -159,8 +155,14 @@ public class CommunityOpenPost extends AppCompatActivity {
                     Toast.makeText(CommunityOpenPost.this, "Report page coming soon :)", Toast.LENGTH_SHORT).show();
                 }
             }
-            @Override public void onTabUnselected(TabLayout.Tab tab) {}
-            @Override public void onTabReselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
 
         // Back button
@@ -176,6 +178,7 @@ public class CommunityOpenPost extends AppCompatActivity {
         // Bottom navigation
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
+
             if (id == R.id.nav_home) {
                 startActivity(new Intent(this, MainActivity.class));
             } else if (id == R.id.nav_news) {
@@ -185,13 +188,13 @@ public class CommunityOpenPost extends AppCompatActivity {
             } else {
                 return false;
             }
+
             overridePendingTransition(0, 0);
             finish();
             return true;
         });
     }
 
-    // Assign the guest a random unique ID
     private String getOrCreateUserId() {
         SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String userId = prefs.getString("user_id", null);

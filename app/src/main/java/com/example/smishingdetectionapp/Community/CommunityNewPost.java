@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
+import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smishingdetectionapp.MainActivity;
@@ -15,6 +15,10 @@ import com.example.smishingdetectionapp.R;
 import com.example.smishingdetectionapp.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class CommunityNewPost extends AppCompatActivity {
 
@@ -42,8 +46,17 @@ public class CommunityNewPost extends AppCompatActivity {
             String message = messageInput.getText().toString().trim();
 
             if (!title.isEmpty() && !message.isEmpty()) {
+                // Get user ID from SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                String userId = sharedPreferences.getString("user_id", "you");
+
+                // Get current date
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String currentDate = sdf.format(new Date());
+
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("username", "You • just now"); //username
+                resultIntent.putExtra("userId", userId);
+                resultIntent.putExtra("date", currentDate);
                 resultIntent.putExtra("posttitle", title);
                 resultIntent.putExtra("postdescription", message);
                 resultIntent.putExtra("likes", 0);       // initial like count
