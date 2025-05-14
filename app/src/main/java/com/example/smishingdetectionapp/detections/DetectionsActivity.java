@@ -22,6 +22,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.smishingdetectionapp.CommunityReportActivity;
 import com.example.smishingdetectionapp.MainActivity;
 import com.example.smishingdetectionapp.NewsActivity;
 import com.example.smishingdetectionapp.R;
@@ -57,7 +58,6 @@ public class DetectionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detections);
 
-
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setSelectedItemId(R.id.nav_home);
         nav.setOnItemSelectedListener(menuItem -> {
@@ -67,8 +67,17 @@ public class DetectionsActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 finish();
                 return true;
+
+            } else if (id == R.id.nav_report) {
+                Intent i = new Intent(this, CommunityReportActivity.class);
+                i.putExtra("source", "home");
+                startActivity(i);
+                overridePendingTransition(0,0);
+                finish();
+                return true;
+
             } else if (id == R.id.nav_news) {
-                startActivity(new Intent(getApplicationContext(), NewsActivity.class));
+                startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
                 overridePendingTransition(0, 0);
                 finish();
                 return true;
@@ -80,6 +89,7 @@ public class DetectionsActivity extends AppCompatActivity {
             }
             return false;
         });
+
 
         ImageButton detections_back = findViewById(R.id.detections_back);
         detections_back.setOnClickListener(v -> {
