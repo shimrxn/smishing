@@ -13,8 +13,7 @@ import com.google.android.material.tabs.TabLayout;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.ImageButton;
-import com.example.smishingdetectionapp.CommunityReportActivity;
-import com.example.smishingdetectionapp.CommunityPostActivity;
+
 public class CommunityHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

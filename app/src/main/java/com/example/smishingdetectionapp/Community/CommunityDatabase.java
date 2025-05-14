@@ -5,9 +5,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.smishingdetectionapp.Community.CommunityDatabase;
-import com.example.smishingdetectionapp.Community.CommunityPost;
-
 public class CommunityDatabase extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "community.db";

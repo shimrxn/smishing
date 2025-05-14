@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.smishingdetectionapp.Community.CommunityDatabaseAccess;
 import com.example.smishingdetectionapp.MainActivity;
 import com.example.smishingdetectionapp.NewsActivity;
 import com.example.smishingdetectionapp.R;
@@ -22,11 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class CommunityPostActivity extends AppCompatActivity {
 
@@ -97,18 +92,24 @@ public class CommunityPostActivity extends AppCompatActivity {
             startActivityForResult(intent, 100);
         });
 
+        // TabLayout
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Trending"));
         tabLayout.addTab(tabLayout.newTab().setText("Posts"));
         tabLayout.addTab(tabLayout.newTab().setText("Report"));
         tabLayout.getTabAt(1).select();
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
                     startActivity(new Intent(CommunityPostActivity.this, CommunityHomeActivity.class));
                     finish();
                 } else if (tab.getPosition() == 2) {
-                    Toast.makeText(CommunityPostActivity.this, "Report page coming soon :)", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CommunityPostActivity.this, CommunityReportActivity.class);
+                    intent.putExtra("source", "posts");
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
+                    finish();
                 }
             }
             @Override public void onTabUnselected(TabLayout.Tab tab) {}
@@ -122,14 +123,19 @@ public class CommunityPostActivity extends AppCompatActivity {
         });
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        nav.setSelectedItemId(R.id.nav_home); // Optional: set correct tab if needed
         nav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
             } else if (id == R.id.nav_news) {
-                startActivity(new Intent(getApplicationContext(), NewsActivity.class));
+                startActivity(new Intent(this, NewsActivity.class));
             } else if (id == R.id.nav_settings) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                startActivity(new Intent(this, SettingsActivity.class));
+            } else if (id == R.id.nav_report) {
+                Intent intent = new Intent(this, CommunityReportActivity.class);
+                intent.putExtra("source", "posts");
+                startActivity(intent);
             } else {
                 return false;
             }

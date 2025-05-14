@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.smishingdetectionapp.Community.CommunityDatabase;
-import com.example.smishingdetectionapp.Community.CommunityPost;
-
 public class CommunityDatabaseAccess {
     private SQLiteDatabase database;
     private CommunityDatabase dbHelper;
