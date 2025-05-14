@@ -81,6 +81,9 @@ public class CommunityReportActivity extends AppCompatActivity {
 
         // BottomNavigationView: identical to CommunityHomeActivity’s
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+
+        nav.setSelectedItemId(R.id.nav_report);
+
         nav.setOnItemSelectedListener(item -> {
             Intent intent;
             int id = item.getItemId();
