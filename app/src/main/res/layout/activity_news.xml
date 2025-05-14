@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".NewsActivity">
 
-    <!-- ───── Bottom navigation ───── -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
@@ -100,5 +99,19 @@
         app:layout_constraintStart_toStartOf="@id/news_recycler_view"
         app:layout_constraintEnd_toEndOf="@id/news_recycler_view" />
 
+    <!-- ───── Bottom navigation ───── -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:theme="@style/Theme.SmishingDetectionApp"
+        app:itemBackground="@color/baby_blue"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/activity_main_drawer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
