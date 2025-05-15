@@ -1,31 +1,25 @@
 package com.example.smishingdetectionapp;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.TypedValue;
-import com.example.smishingdetectionapp.PreferencesUtil;
 import android.content.res.Configuration;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import com.example.smishingdetectionapp.chat.ChatAssistantActivity;
-import com.example.smishingdetectionapp.news.NewsAdapter;
 import com.example.smishingdetectionapp.ui.account.AccountActivity;
 import com.example.smishingdetectionapp.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,7 +28,7 @@ import java.util.concurrent.Executor;
 import android.widget.ScrollView;
 import android.graphics.Typeface;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 import androidx.preference.PreferenceManager;
 import android.content.SharedPreferences;
 import android.widget.Switch;
@@ -50,19 +44,49 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView textScaleLabel;
     private float textScale; // between 0.8f and 1.5f, for example
     private Dialog dialog;
+    private static final String KEY_SCROLL_POSITION = "scroll_position";
+    private int savedPosition = 0;
+    private ScrollView scrollView;
+    private SharedPreferences prefs;
+    private boolean isColdStart = true;
+    private Switch darkModeSwitch;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isBold = prefs.getBoolean("bold_text_enabled", false);
         setTheme(isBold ? R.style.Theme_SmishingDetectionApp_Bold : R.style.Theme_SmishingDetectionApp);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        darkModeSwitch = findViewById(R.id.dark_mode_switch);
+
+        boolean isDarkMode = prefs.getBoolean("dark_mode", false);
+        darkModeSwitch.setChecked(isDarkMode);
+
+        AppCompatDelegate.setDefaultNightMode(
+                isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+        );
+
+        darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            AppCompatDelegate.setDefaultNightMode(
+                    isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+            );
+
+            prefs.edit().putBoolean("dark_mode", isChecked).apply();
+
+            // Optional: recreate activity to apply theme changes immediately
+            recreate();
+        });
+
+
         textScaleLabel = findViewById(R.id.textScaleLabel);
         seekBarFontScale = findViewById(R.id.seekBarFontScale);
         textScale = PreferencesUtil.getTextScale(this);
         updateScaleLabel();
+
+
 
 // Set current SeekBar position
         seekBarFontScale.setProgress((int) (textScale * 10));
@@ -82,8 +106,13 @@ public class SettingsActivity extends AppCompatActivity {
                 applyFontScale();
             }
 
-            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
-            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
 
         if (isBold) {
@@ -93,23 +122,26 @@ public class SettingsActivity extends AppCompatActivity {
             applyBoldToAllWidgets(findViewById(R.id.settingsScroll));
         }
 
+        scrollView = findViewById(R.id.settingsScroll);
 
-        ScrollView scrollView = findViewById(R.id.settingsScroll);
-        if (scrollView != null) {
-            scrollView.post(() -> scrollView.fullScroll(ScrollView.FOCUS_UP));
+        //Cold start/ navigation icon
+        boolean isFromNav = getIntent().getBooleanExtra("from_navigation", false);
+        boolean isCold = prefs.getBoolean("cold_start", true);
+
+        if (isFromNav || isCold) {
+            scrollView.post(() -> scrollView.scrollTo(0, 0));
+            prefs.edit().putBoolean("cold_start", false).apply();  // 冷启动处理完毕
+        } else {
+            restoreScrollPosition();
         }
-
 
         Switch boldSwitch = findViewById(R.id.bold_text);
         if (boldSwitch != null) {
             boldSwitch.setChecked(isBold);
             boldSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                int scrollY = scrollView != null ? scrollView.getScrollY() : 0;
-                prefs.edit()
-                        .putBoolean("bold_text_enabled", isChecked)
-                        .putInt("scroll_pos", scrollY)
-                        .apply();
-                recreate(); // Reload to apply new theme
+                saveScrollPosition();
+                prefs.edit().putBoolean("bold_text_enabled", isChecked).apply();
+                recreate();
             });
         }
 
@@ -118,24 +150,36 @@ public class SettingsActivity extends AppCompatActivity {
         nav.setSelectedItemId(R.id.nav_settings);
 
         nav.setOnItemSelectedListener(menuItem -> {
-
             int id = menuItem.getItemId();
             if (id == R.id.nav_home) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 overridePendingTransition(0, 0);
                 finish();
                 return true;
+
+            } else if (menuItem.getItemId() == R.id.nav_report) {
+                Intent i = new Intent(this, CommunityReportActivity.class);
+                i.putExtra("source", "home");
+                startActivity(i);
+                overridePendingTransition(0,0);
+                return true;
+
             } else if (id == R.id.nav_news) {
                 startActivity(new Intent(getApplicationContext(), NewsActivity.class));
                 overridePendingTransition(0, 0);
                 finish();
                 return true;
             } else if (id == R.id.nav_settings) {
-                nav.setActivated(true);
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                intent.putExtra("from_navigation", true);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
                 return true;
             }
             return false;
         });
+
         // Account button to switch to account page with biometric authentication
         Button accountBtn = findViewById(R.id.accountBtn);
         accountBtn.setOnClickListener(v -> triggerBiometricAuthenticationWithTimeout());
@@ -169,7 +213,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
 
-
         Button aboutUsBtn = findViewById(R.id.aboutUsBtn);
         aboutUsBtn.setOnClickListener(v -> {
             Intent intent = new Intent(SettingsActivity.this, AboutUsActivity.class);
@@ -191,7 +234,9 @@ public class SettingsActivity extends AppCompatActivity {
         //Community Button to switch to Community page
         Button communityBtn = findViewById(R.id.communityBtn);
         communityBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, CommunityHomeActivity.class));
+            Intent i = new Intent(this, CommunityHomeActivity.class);
+            i.putExtra("source", "settings");
+            startActivity(i);
         });
 
         Button signoutBtn = findViewById(R.id.buttonSignOut);
@@ -206,7 +251,7 @@ public class SettingsActivity extends AppCompatActivity {
             dialog.dismiss();
         });
         dialogSignout.setOnClickListener(v -> {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
         });
@@ -214,24 +259,47 @@ public class SettingsActivity extends AppCompatActivity {
         signoutBtn.setOnClickListener(v -> {
             dialog.show();
         });
+        if (isTaskRoot()) {
+            prefs.edit().putBoolean("cold_start", true).apply();
+            prefs.edit().remove("scroll_pos").apply();
+        }
 
 
     }
+
     // Trigger biometric authentication with timeout
     private void triggerBiometricAuthenticationWithTimeout() {
-        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+        int authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG
+                | BiometricManager.Authenticators.DEVICE_CREDENTIAL;
+
+        BiometricManager bm = BiometricManager.from(this);
+        switch (bm.canAuthenticate(authenticators)) {
+            case BiometricManager.BIOMETRIC_SUCCESS:
+                // safe to ask for biometrics / device PIN
+                biometricPrompt = getPrompt();
+                biometricPrompt.authenticate(buildPromptInfo(authenticators));
+                startTimeoutTimer();
+                break;
+
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                // nothing enrolled → just open the Account screen (or send user to settings)
+                openAccountActivity();
+                break;
+
+            default:
+                // sensor missing, locked out, etc. → fall back or notify
+                notifyUser("Biometric authentication unavailable");
+                openAccountActivity();
+                break;
+        }
+    }
+
+    private BiometricPrompt.PromptInfo buildPromptInfo(int authenticators) {
+        return new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Authentication Required")
                 .setDescription("Please authenticate to access your account settings")
-                .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG |
-                        BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+                .setAllowedAuthenticators(authenticators)
                 .build();
-
-        // Start the authentication process
-        biometricPrompt = getPrompt();
-        biometricPrompt.authenticate(promptInfo);
-
-        // Start the timeout timer
-        startTimeoutTimer();
     }
 
     // BiometricPrompt setup
@@ -298,6 +366,7 @@ public class SettingsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NotificationActivity.class);
         startActivity(intent);
     }
+
     private void applyBoldToAllSwitches(View root) {
         if (!(root instanceof ViewGroup)) return;
 
@@ -312,6 +381,7 @@ public class SettingsActivity extends AppCompatActivity {
             applyBoldToAllSwitches(child);
         }
     }
+
     private void applyBoldToAllWidgets(View root) {
         if (!(root instanceof ViewGroup)) return;
 
@@ -334,6 +404,7 @@ public class SettingsActivity extends AppCompatActivity {
             applyBoldToAllWidgets(child);
         }
     }
+
     private void applyFontScale() {
         Configuration configuration = getResources().getConfiguration();
         configuration = new Configuration(configuration); // make a copy
@@ -344,6 +415,7 @@ public class SettingsActivity extends AppCompatActivity {
         // Refresh the layout
         recreate();
     }
+
     private void saveAndApplyScale() {
         PreferencesUtil.setTextScale(this, textScale);
         updateScaleLabel();
@@ -354,12 +426,49 @@ public class SettingsActivity extends AppCompatActivity {
         int percentage = (int) (textScale * 100);
         textScaleLabel.setText(percentage + "%");
     }
+
     @Override
     public void onBackPressed() {
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setSelectedItemId(R.id.nav_home);
         finish();
         super.onBackPressed();
+    }
+
+    private void saveScrollPosition() {
+        if (scrollView != null) {
+            int scrollY = scrollView.getScrollY();
+            PreferenceManager.getDefaultSharedPreferences(this)
+                    .edit()
+                    .putInt("scroll_pos", scrollY)
+                    .apply();
+        }
+    }
+
+    private void restoreScrollPosition() {
+        savedPosition = prefs.getInt("scroll_pos", 0);
+
+        if (isTaskRoot()) {
+            savedPosition = 0;
+        }
+
+        scrollView.post(() ->
+                scrollView.scrollTo(0, savedPosition)
+        );
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveScrollPosition();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!prefs.getBoolean("cold_start", false)) {
+            restoreScrollPosition();
+        }
     }
 }
 
