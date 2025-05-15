@@ -69,19 +69,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/detections_btn" />
 
-
-
         <ImageView
             android:id="@+id/HardhatLogo"
             android:layout_width="112dp"
             android:layout_height="106dp"
             android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guestBanner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/new_logo"
-            android:contentDescription="@string/logo_description"/>
+            android:contentDescription="@string/logo_description" />
 
         <TextView
             android:id="@+id/DashboardText"
@@ -124,10 +121,11 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="230dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/buttons_rounded"
             app:layout_constraintBottom_toTopOf="@+id/new_detections"
+            app:layout_constraintTop_toBottomOf="@id/DashboardText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
