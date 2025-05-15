@@ -1,0 +1,257 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\" />\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.READ_SMS\"/>\r\n    <uses-permission android:name=\"android.permission.READ_CONTACTS\"/>\r\n\r\n    <uses-feature\r\n        android:name=\"android.hardware.telephony\"\r\n        android:required=\"false\" />\r\n\r\n    <uses-permission android:name=\"android.permission.READ_SMS\" />\r\n    <uses-permission android:name=\"android.permission.CALL_PHONE\" />\r\n    <uses-permission android:name=\"android.permission.USE_BIOMETRIC\" />\r\n    <uses-permission android:name=\"android.permission.USE_FINGERPRINT\" />\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:usesCleartextTraffic=\"true\"\r\n        android:icon=\"@drawable/hardhat_logo\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@drawable/hardhat_logo\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.SmishingDetectionApp\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".TermsAndConditionsActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".SmsActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".SMSMessageDetailActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".HelpActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".AboutMeActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".NotificationActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".DebugActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".SmishingRulesActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".ui.Register.RegisterMain\"\r\n            android:exported=\"true\" />\r\n        <activity\r\n            android:name=\".ui.Register.EmailVerify\"\r\n            android:exported=\"true\" />\r\n        <activity\r\n            android:name=\".ui.account.AccountActivity\"\r\n            android:exported=\"true\" />\r\n        <activity\r\n            android:name=\".ui.account.PopupDEL\" />\r\n        <activity\r\n            android:name=\".detections.DetectionsActivity\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.VIEW\" />\r\n\r\n                <category android:name=\"android.intent.category.DEFAULT\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".NewsActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".ReportingActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".SignupActivity\"\r\n            android:exported=\"false\" />\r\n\r\n        <activity android:name=\".EducationActivity\" />\r\n        <activity android:name=\".AboutUsActivity\" />\r\n        <activity android:name=\".QuizResultActivity\" />\r\n        <activity android:name=\".QuizesActivity\"/>\r\n        <!-- Your Reports Activity-->\r\n        <activity android:name=\".detections.YourReportsActivity\" android:exported=\"false\"/>\r\n      \r\n        <activity\r\n            android:name=\".SettingsActivity\"\r\n            android:exported=\"false\" /> <!-- Set LoginActivity as the launcher activity -->\r\n        <activity\r\n            android:name=\".ui.login.LoginActivity\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity> <!-- MainActivity is not the launcher anymore -->\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"true\"\r\n            android:theme=\"@style/Theme.SmishingDetectionApp.NoActionBar\" />\r\n        <activity\r\n            android:name=\".FeedbackActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".ForumActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".chat.ChatAssistantActivity\"\r\n            android:exported=\"false\"\r\n            android:label=\"@string/chat_assistant_page\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 62183a0fac29d4973be14f41ab14529f4bb38a4d)
++++ b/app/src/main/AndroidManifest.xml	(date 1746262977466)
+@@ -118,6 +118,20 @@
+             android:name=".chat.ChatAssistantActivity"
+             android:exported="false"
+             android:label="@string/chat_assistant_page" />
++
++        <receiver
++            android:name=".SmishingWidget"
++            android:label="Smishing Widget"
++            android:exported="true">
++            <intent-filter>
++                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
++            </intent-filter>
++
++            <meta-data
++                android:name="android.appwidget.provider"
++                android:resource="@xml/smishing_widget_info" />
++        </receiver>
++
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/res/layout/widget_layout.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/widget_layout.xml b/app/src/main/res/layout/widget_layout.xml
+new file mode 100644
+--- /dev/null	(date 1746264626168)
++++ b/app/src/main/res/layout/widget_layout.xml	(date 1746264626168)
+@@ -0,0 +1,51 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:orientation="vertical"
++    android:padding="12dp"
++    android:background="@drawable/buttons_rounded">
++
++    <TextView
++        android:id="@+id/widget_title"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Smishing Detections"
++        android:textStyle="bold"
++        android:textSize="16sp"
++        android:textColor="#000000" />
++
++    <TextView
++        android:id="@+id/widget_count"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="0"
++        android:textSize="32sp"
++        android:textColor="#FF0000"
++        android:layout_marginTop="8dp" />
++
++    <TextView
++        android:id="@+id/widget_last_updated"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Updated: --:--"
++        android:textSize="12sp"
++        android:textColor="#555555"
++        android:layout_marginTop="4dp" />
++
++    <Button
++        android:id="@+id/widget_open_app_btn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Open App"
++        android:layout_marginTop="12dp" />
++
++    <Button
++        android:id="@+id/widget_report_btn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Report Smishing"
++        android:layout_marginTop="8dp" />
++
++</LinearLayout>
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Thu Nov 14 12:44:40 IST 2024\r\ndistributionBase=GRADLE_USER_HOME\r\ndistributionPath=wrapper/dists\r\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-bin.zip\r\nzipStoreBase=GRADLE_USER_HOME\r\nzipStorePath=wrapper/dists\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+--- a/gradle/wrapper/gradle-wrapper.properties	(revision 62183a0fac29d4973be14f41ab14529f4bb38a4d)
++++ b/gradle/wrapper/gradle-wrapper.properties	(date 1746263239252)
+@@ -1,6 +1,6 @@
+ #Thu Nov 14 12:44:40 IST 2024
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-8.9-bin.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-8.11.1-bin.zip
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+Index: app/src/test/java/widget/smishingdetectionapp/widgetprovider.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/test/java/widget/smishingdetectionapp/widgetprovider.java b/app/src/test/java/widget/smishingdetectionapp/widgetprovider.java
+new file mode 100644
+--- /dev/null	(date 1746262693328)
++++ b/app/src/test/java/widget/smishingdetectionapp/widgetprovider.java	(date 1746262693328)
+@@ -0,0 +1,26 @@
++package com.example.smishingdetectionapp.widget;
++
++import android.app.PendingIntent;
++import android.appwidget.AppWidgetManager;
++import android.appwidget.AppWidgetProvider;
++import android.content.Context;
++import android.content.Intent;
++import android.widget.RemoteViews;
++
++import com.example.smishingdetectionapp.MainActivity;
++import com.example.smishingdetectionapp.R;
++
++public class MyAppWidgetProvider extends AppWidgetProvider {
++    @Override
++    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
++        for (int appWidgetId : appWidgetIds) {
++            Intent intent = new Intent(context, MainActivity.class);
++            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
++
++            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
++            views.setOnClickPendingIntent(R.id.widget_root, pendingIntent);
++
++            appWidgetManager.updateAppWidget(appWidgetId, views);
++        }
++    }
++}
+Index: app/src/main/res/xml/smishing_widget_info.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/xml/smishing_widget_info.xml b/app/src/main/res/xml/smishing_widget_info.xml
+new file mode 100644
+--- /dev/null	(date 1746263137021)
++++ b/app/src/main/res/xml/smishing_widget_info.xml	(date 1746263137021)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="utf-8"?>
++<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
++    android:minWidth="180dp"
++    android:minHeight="110dp"
++    android:updatePeriodMillis="1800000"
++    android:initialLayout="@layout/widget_layout"
++    android:resizeMode="horizontal|vertical"
++    android:widgetCategory="home_screen" />
+Index: gradle/libs.versions.toml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[versions]\r\nagp = \"8.7.2\"\r\njunit = \"4.13.2\"\r\njunitVersion = \"1.1.5\"\r\nespressoCore = \"3.5.1\"\r\nappcompat = \"1.6.1\"\r\nmaterial = \"1.10.0\"\r\nconstraintlayout = \"2.1.4\"\r\nlifecycleLivedataKtx = \"2.6.1\"\r\nlifecycleViewmodelKtx = \"2.6.1\"\r\nnavigationFragment = \"2.6.0\"\r\nnavigationUi = \"2.6.0\"\r\nannotation = \"1.6.0\"\r\npreference = \"1.2.0\"\r\nkotlin = \"1.9.0\"\r\nlifecycleRuntimeKtx = \"2.7.0\"\r\nactivityCompose = \"1.7.0\"\r\ncomposeBom = \"2023.08.00\"\r\nactivity = \"1.8.0\"\r\nbiometric = \"1.1.0\"\r\nplayServicesTasks = \"18.2.0\"\r\n\r\n[libraries]\r\njunit = { group = \"junit\", name = \"junit\", version.ref = \"junit\" }\r\next-junit = { group = \"androidx.test.ext\", name = \"junit\", version.ref = \"junitVersion\" }\r\nespresso-core = { group = \"androidx.test.espresso\", name = \"espresso-core\", version.ref = \"espressoCore\" }\r\nappcompat = { group = \"androidx.appcompat\", name = \"appcompat\", version.ref = \"appcompat\" }\r\nmaterial = { group = \"com.google.android.material\", name = \"material\", version.ref = \"material\" }\r\nconstraintlayout = { group = \"androidx.constraintlayout\", name = \"constraintlayout\", version.ref = \"constraintlayout\" }\r\nlifecycle-livedata-ktx = { group = \"androidx.lifecycle\", name = \"lifecycle-livedata-ktx\", version.ref = \"lifecycleLivedataKtx\" }\r\nlifecycle-viewmodel-ktx = { group = \"androidx.lifecycle\", name = \"lifecycle-viewmodel-ktx\", version.ref = \"lifecycleViewmodelKtx\" }\r\nnavigation-fragment = { group = \"androidx.navigation\", name = \"navigation-fragment\", version.ref = \"navigationFragment\" }\r\nnavigation-ui = { group = \"androidx.navigation\", name = \"navigation-ui\", version.ref = \"navigationUi\" }\r\nannotation = { group = \"androidx.annotation\", name = \"annotation\", version.ref = \"annotation\" }\r\npreference = { group = \"androidx.preference\", name = \"preference\", version.ref = \"preference\" }\r\nlifecycle-runtime-ktx = { group = \"androidx.lifecycle\", name = \"lifecycle-runtime-ktx\", version.ref = \"lifecycleRuntimeKtx\" }\r\nactivity-compose = { group = \"androidx.activity\", name = \"activity-compose\", version.ref = \"activityCompose\" }\r\ncompose-bom = { group = \"androidx.compose\", name = \"compose-bom\", version.ref = \"composeBom\" }\r\nui = { group = \"androidx.compose.ui\", name = \"ui\" }\r\nui-graphics = { group = \"androidx.compose.ui\", name = \"ui-graphics\" }\r\nui-tooling = { group = \"androidx.compose.ui\", name = \"ui-tooling\" }\r\nui-tooling-preview = { group = \"androidx.compose.ui\", name = \"ui-tooling-preview\" }\r\nui-test-manifest = { group = \"androidx.compose.ui\", name = \"ui-test-manifest\" }\r\nui-test-junit4 = { group = \"androidx.compose.ui\", name = \"ui-test-junit4\" }\r\nmaterial3 = { group = \"androidx.compose.material3\", name = \"material3\" }\r\nactivity = { group = \"androidx.activity\", name = \"activity\", version.ref = \"activity\" }\r\nbiometric = { group = \"androidx.biometric\", name = \"biometric\", version.ref = \"biometric\" }\r\nplay-services-tasks = { group = \"com.google.android.gms\", name = \"play-services-tasks\", version.ref = \"playServicesTasks\" }\r\n\r\n[plugins]\r\nandroidApplication = { id = \"com.android.application\", version.ref = \"agp\" }\r\njetbrainsKotlinAndroid = { id = \"org.jetbrains.kotlin.android\", version.ref = \"kotlin\" }\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gradle/libs.versions.toml b/gradle/libs.versions.toml
+--- a/gradle/libs.versions.toml	(revision 62183a0fac29d4973be14f41ab14529f4bb38a4d)
++++ b/gradle/libs.versions.toml	(date 1746263239248)
+@@ -1,5 +1,5 @@
+ [versions]
+-agp = "8.7.2"
++agp = "8.9.1"
+ junit = "4.13.2"
+ junitVersion = "1.1.5"
+ espressoCore = "3.5.1"
+Index: app/src/main/java/com/example/smishingdetectionapp/SmishingWidget.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/smishingdetectionapp/SmishingWidget.java b/app/src/main/java/com/example/smishingdetectionapp/SmishingWidget.java
+new file mode 100644
+--- /dev/null	(date 1746264238781)
++++ b/app/src/main/java/com/example/smishingdetectionapp/SmishingWidget.java	(date 1746264238781)
+@@ -0,0 +1,65 @@
++package com.example.smishingdetectionapp;
++
++import android.annotation.SuppressLint;
++import android.app.PendingIntent;
++import android.appwidget.AppWidgetManager;
++import android.appwidget.AppWidgetProvider;
++import android.content.Context;
++import android.content.Intent;
++import android.widget.RemoteViews;
++
++import com.example.smishingdetectionapp.detections.DatabaseAccess;
++
++import java.text.SimpleDateFormat;
++import java.util.Date;
++
++public class SmishingWidget extends AppWidgetProvider {
++
++    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
++        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
++
++        // Fetch count from database
++        DatabaseAccess db = DatabaseAccess.getInstance(context);
++        db.open();
++        int count = db.getCounter();
++        db.close();
++        views.setTextViewText(R.id.widget_count, String.valueOf(count));
++
++        // Set timestamp
++        @SuppressLint("SimpleDateFormat")
++        String timeStamp = new SimpleDateFormat("hh:mm a").format(new Date());
++        views.setTextViewText(R.id.widget_last_updated, "Updated: " + timeStamp);
++
++        // Intent to open main app
++        Intent openAppIntent = new Intent(context, MainActivity.class);
++        PendingIntent openAppPendingIntent = PendingIntent.getActivity(
++                context, 0, openAppIntent, PendingIntent.FLAG_IMMUTABLE);
++        views.setOnClickPendingIntent(R.id.widget_open_app_btn, openAppPendingIntent);
++
++        // Intent to open Report Smishing screen
++        Intent reportIntent = new Intent(context, ReportingActivity.class);
++        PendingIntent reportPendingIntent = PendingIntent.getActivity(
++                context, 1, reportIntent, PendingIntent.FLAG_IMMUTABLE);
++        views.setOnClickPendingIntent(R.id.widget_report_btn, reportPendingIntent);
++
++        // Update the widget
++        appWidgetManager.updateAppWidget(appWidgetId, views);
++    }
++
++    @Override
++    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
++        for (int appWidgetId : appWidgetIds) {
++            updateWidget(context, appWidgetManager, appWidgetId);
++        }
++    }
++
++    @Override
++    public void onEnabled(Context context) {
++        // Called when the first widget is added
++    }
++
++    @Override
++    public void onDisabled(Context context) {
++        // Called when the last widget is removed
++    }
++}
