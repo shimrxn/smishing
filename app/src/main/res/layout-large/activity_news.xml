@@ -77,9 +77,24 @@
         android:layout_marginBottom="12dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@id/btn_saved_news"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ───── Saved-news button (full-width, above nav) ───── -->
+    <Button
+        android:id="@+id/btn_saved_news"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_height_large"
+        android:layout_marginStart="@dimen/margin_tablet"
+        android:layout_marginEnd="@dimen/margin_tablet"
+        android:layout_marginBottom="6dp"
+        android:paddingVertical="10dp"
+        android:text="@string/saved_news"
+        android:textColor="@color/navy_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation" />
 
     <!-- Error message -->
     <TextView
