@@ -12,19 +12,14 @@
         android:padding="24dp">
 
         <!-- Centering Helper -->
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineCenter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="0dp" />
+
 
         <!-- Group container -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/contentGroup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/guidelineCenter"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -34,7 +29,7 @@
                 android:id="@+id/logoImage"
                 android:layout_width="@dimen/image_size_large"
                 android:layout_height="@dimen/image_size_large"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="24dp"
                 android:contentDescription="Logo"
                 android:scaleType="fitCenter"
                 android:src="@drawable/new_logo"
@@ -50,6 +45,7 @@
                 android:text="Create Your Account"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:layout_marginTop="24dp"
                 app:layout_constraintTop_toBottomOf="@id/logoImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -62,7 +58,7 @@
                 android:text="Join in on the Journey to Better Cybersecurity"
                 android:textSize="14sp"
                 android:gravity="center"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintTop_toBottomOf="@id/createAccountTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -72,7 +68,7 @@
                 android:id="@+id/signUpButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/buttons_rounded"
                 android:text="Sign Up"
                 android:textAllCaps="false"
@@ -85,7 +81,7 @@
                 android:id="@+id/loginButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:background="@drawable/button_clear_rounded"
                 android:text="Log In"
                 android:textAllCaps="false"
@@ -98,7 +94,7 @@
                 android:id="@+id/termsConditionsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="48dp"
                 android:text="Click here for Terms and Conditions"
                 android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@id/loginButton"
