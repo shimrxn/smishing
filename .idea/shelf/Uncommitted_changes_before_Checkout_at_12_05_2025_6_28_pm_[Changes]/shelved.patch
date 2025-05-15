@@ -1,0 +1,35 @@
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Thu Nov 14 12:44:40 IST 2024\r\ndistributionBase=GRADLE_USER_HOME\r\ndistributionPath=wrapper/dists\r\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-bin.zip\r\nzipStoreBase=GRADLE_USER_HOME\r\nzipStorePath=wrapper/dists\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+--- a/gradle/wrapper/gradle-wrapper.properties	(revision 19f4e18b70535e968bd6349607914fcbeac403e4)
++++ b/gradle/wrapper/gradle-wrapper.properties	(date 1747038357271)
+@@ -1,6 +1,6 @@
+ #Thu Nov 14 12:44:40 IST 2024
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-8.9-bin.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-8.11.1-bin.zip
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+Index: gradle/libs.versions.toml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[versions]\r\nagp = \"8.7.2\"\r\njunit = \"4.13.2\"\r\njunitVersion = \"1.1.5\"\r\nespressoCore = \"3.5.1\"\r\nappcompat = \"1.6.1\"\r\nmaterial = \"1.10.0\"\r\nconstraintlayout = \"2.1.4\"\r\nlifecycleLivedataKtx = \"2.6.1\"\r\nlifecycleViewmodelKtx = \"2.6.1\"\r\nnavigationFragment = \"2.6.0\"\r\nnavigationUi = \"2.6.0\"\r\nannotation = \"1.6.0\"\r\npreference = \"1.2.0\"\r\nkotlin = \"1.9.0\"\r\nlifecycleRuntimeKtx = \"2.7.0\"\r\nactivityCompose = \"1.7.0\"\r\ncomposeBom = \"2023.08.00\"\r\nactivity = \"1.8.0\"\r\nbiometric = \"1.1.0\"\r\nplayServicesTasks = \"18.2.0\"\r\n\r\n[libraries]\r\njunit = { group = \"junit\", name = \"junit\", version.ref = \"junit\" }\r\next-junit = { group = \"androidx.test.ext\", name = \"junit\", version.ref = \"junitVersion\" }\r\nespresso-core = { group = \"androidx.test.espresso\", name = \"espresso-core\", version.ref = \"espressoCore\" }\r\nappcompat = { group = \"androidx.appcompat\", name = \"appcompat\", version.ref = \"appcompat\" }\r\nmaterial = { group = \"com.google.android.material\", name = \"material\", version.ref = \"material\" }\r\nconstraintlayout = { group = \"androidx.constraintlayout\", name = \"constraintlayout\", version.ref = \"constraintlayout\" }\r\nlifecycle-livedata-ktx = { group = \"androidx.lifecycle\", name = \"lifecycle-livedata-ktx\", version.ref = \"lifecycleLivedataKtx\" }\r\nlifecycle-viewmodel-ktx = { group = \"androidx.lifecycle\", name = \"lifecycle-viewmodel-ktx\", version.ref = \"lifecycleViewmodelKtx\" }\r\nnavigation-fragment = { group = \"androidx.navigation\", name = \"navigation-fragment\", version.ref = \"navigationFragment\" }\r\nnavigation-ui = { group = \"androidx.navigation\", name = \"navigation-ui\", version.ref = \"navigationUi\" }\r\nannotation = { group = \"androidx.annotation\", name = \"annotation\", version.ref = \"annotation\" }\r\npreference = { group = \"androidx.preference\", name = \"preference\", version.ref = \"preference\" }\r\nlifecycle-runtime-ktx = { group = \"androidx.lifecycle\", name = \"lifecycle-runtime-ktx\", version.ref = \"lifecycleRuntimeKtx\" }\r\nactivity-compose = { group = \"androidx.activity\", name = \"activity-compose\", version.ref = \"activityCompose\" }\r\ncompose-bom = { group = \"androidx.compose\", name = \"compose-bom\", version.ref = \"composeBom\" }\r\nui = { group = \"androidx.compose.ui\", name = \"ui\" }\r\nui-graphics = { group = \"androidx.compose.ui\", name = \"ui-graphics\" }\r\nui-tooling = { group = \"androidx.compose.ui\", name = \"ui-tooling\" }\r\nui-tooling-preview = { group = \"androidx.compose.ui\", name = \"ui-tooling-preview\" }\r\nui-test-manifest = { group = \"androidx.compose.ui\", name = \"ui-test-manifest\" }\r\nui-test-junit4 = { group = \"androidx.compose.ui\", name = \"ui-test-junit4\" }\r\nmaterial3 = { group = \"androidx.compose.material3\", name = \"material3\" }\r\nactivity = { group = \"androidx.activity\", name = \"activity\", version.ref = \"activity\" }\r\nbiometric = { group = \"androidx.biometric\", name = \"biometric\", version.ref = \"biometric\" }\r\nplay-services-tasks = { group = \"com.google.android.gms\", name = \"play-services-tasks\", version.ref = \"playServicesTasks\" }\r\n\r\n[plugins]\r\nandroidApplication = { id = \"com.android.application\", version.ref = \"agp\" }\r\njetbrainsKotlinAndroid = { id = \"org.jetbrains.kotlin.android\", version.ref = \"kotlin\" }\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gradle/libs.versions.toml b/gradle/libs.versions.toml
+--- a/gradle/libs.versions.toml	(revision 19f4e18b70535e968bd6349607914fcbeac403e4)
++++ b/gradle/libs.versions.toml	(date 1747038357267)
+@@ -1,5 +1,5 @@
+ [versions]
+-agp = "8.7.2"
++agp = "8.9.1"
+ junit = "4.13.2"
+ junitVersion = "1.1.5"
+ espressoCore = "3.5.1"
