@@ -1,44 +1,58 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    android:padding="12dp">
 
-    <!-- logo -->
-    <ImageView
-        android:id="@+id/widget_logo"
+    <!-- White card container with faint background logo -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/smishing_detection_logo"
-        android:scaleType="centerCrop"
-        android:alpha="0.5" />
+        android:background="@android:color/white"
+        android:padding="12dp"
+        android:elevation="4dp">
 
-    <!-- Overlay text -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="12dp">
+        <!-- Background logo -->
+        <ImageView
+            android:id="@+id/widget_logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/smishing_detection_logo"
+            android:scaleType="centerCrop"
+            android:alpha="0.6"
+            android:contentDescription="Smishing logo background" />
 
-        <TextView
-            android:id="@+id/widget_small_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Smishing Detection"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:gravity="center" />
+        <!-- Foreground content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp">
 
-        <TextView
-            android:id="@+id/widget_small_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3"
-            android:textColor="#D32F2F"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:layout_marginTop="4dp"
-            android:gravity="center" />
-    </LinearLayout>
+            <!-- Title -->
+            <TextView
+                android:id="@+id/widget_small_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Smishing Detection"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"
+                android:gravity="center" />
+
+            <!-- Detection count -->
+            <TextView
+                android:id="@+id/widget_small_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textColor="#D32F2F"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+        </LinearLayout>
+    </FrameLayout>
 </FrameLayout>
