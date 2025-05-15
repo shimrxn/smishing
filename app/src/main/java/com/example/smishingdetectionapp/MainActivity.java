@@ -2,8 +2,6 @@ package com.example.smishingdetectionapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
@@ -35,10 +33,6 @@ public class MainActivity extends SharedActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        // Get Guest Mode flag
-        SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
-        boolean isGuest = prefs.getBoolean("isGuest", false);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_report, R.id.nav_news, R.id.nav_settings)
@@ -74,29 +68,14 @@ public class MainActivity extends SharedActivity {
         });
 
         Button debug_btn = findViewById(R.id.debug_btn);
-        if (isGuest) {
-            debug_btn.setAlpha(0.5f);
-            debug_btn.setOnClickListener(v -> {
-                Toast.makeText(MainActivity.this, "Debug mode is disabled in Guest Mode", Toast.LENGTH_SHORT).show();
-            });
-        } else {
-            debug_btn.setOnClickListener(v -> {
-                startActivity(new Intent(MainActivity.this, DebugActivity.class));
-            });
-        }
-
+        debug_btn.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, DebugActivity.class)));
 
         Button detections_btn = findViewById(R.id.detections_btn);
-        if (isGuest) {
-            detections_btn.setAlpha(0.5f);
-            detections_btn.setOnClickListener(v -> {
-                Toast.makeText(MainActivity.this, "Detections are disabled in Guest Mode", Toast.LENGTH_SHORT).show();
-            });
-        } else {
-            detections_btn.setOnClickListener(v -> {
-                startActivity(new Intent(this, DetectionsActivity.class));
-            });
-        }
+        detections_btn.setOnClickListener(v -> {
+            startActivity(new Intent(this, DetectionsActivity.class));
+            finish();
+        });
 
         Button learnMoreButton = findViewById(R.id.fragment_container);
         learnMoreButton.setOnClickListener(v -> {
@@ -105,31 +84,17 @@ public class MainActivity extends SharedActivity {
         });
 
         Button scanner_btn = findViewById(R.id.scanner_btn);
-        if (isGuest) {
-            scanner_btn.setAlpha(0.5f);
-            scanner_btn.setOnClickListener(v -> {
-                Toast.makeText(MainActivity.this, "Scanner is disabled in Guest Mode", Toast.LENGTH_SHORT).show();
-            });
-        } else {
-            scanner_btn.setOnClickListener(v -> {
-                startActivity(new Intent(this, RiskScannerTCActivity.class));
-            });
-        }
-
+        scanner_btn.setOnClickListener(v -> {
+            startActivity(new Intent(this, RiskScannerTCActivity.class));
+            finish();
+        });
 
         // Database connection
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
-      
-      TextView infoText = findViewById(R.id.information_text);
-TextView total_count = findViewById(R.id.total_counter);
 
-if (isGuest) {
-    infoText.setText("Welcome, Guest! You're in limited mode.\nSign in anytime to unlock full features and insights.");
-} else {
-    infoText.setText("Welcome to Smishing Detection! Your real-time tool to deter and detect smishing attacks.\nYour app is ready to smish.");
-    total_count.setText("" + databaseAccess.getCounter());
-}
+        TextView total_count = findViewById(R.id.total_counter);
+        total_count.setText("" + databaseAccess.getCounter());
 
         databaseAccess.close();
     }
